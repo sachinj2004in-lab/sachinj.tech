@@ -9,19 +9,20 @@ export interface SceneConfig {
   index: number;
   navLabel: string;
   heightVh: number;
-  videoTime: number; // mapped timestamp from character.mp4
+  startFrame: number;
+  endFrame: number;
   charX: number; // percentage in virtual space (0-100)
   charScale: number;
 }
 
 export const SCENES: SceneConfig[] = [
-  { id: 'hero', index: 0, navLabel: 'Home', heightVh: 230, videoTime: 0.6, charX: 72, charScale: 0.95 },
-  { id: 'about', index: 1, navLabel: 'About', heightVh: 280, videoTime: 3.8, charX: 28, charScale: 0.92 },
-  { id: 'work', index: 2, navLabel: 'Work', heightVh: 460, videoTime: 6.0, charX: 74, charScale: 0.90 },
-  { id: 'journey', index: 3, navLabel: 'Journey', heightVh: 240, videoTime: 8.2, charX: 26, charScale: 0.92 },
-  { id: 'skills', index: 4, navLabel: 'Toolkit', heightVh: 280, videoTime: 8.5, charX: 50, charScale: 0.95 },
-  { id: 'highlights', index: 5, navLabel: 'Tracks', heightVh: 320, videoTime: 8.5, charX: 72, charScale: 0.90 },
-  { id: 'contact', index: 6, navLabel: 'Contact', heightVh: 240, videoTime: 9.3, charX: 50, charScale: 1.0 },
+  { id: 'hero', index: 0, navLabel: 'Home', heightVh: 230, startFrame: 0, endFrame: 22, charX: 72, charScale: 0.95 },
+  { id: 'about', index: 1, navLabel: 'About', heightVh: 280, startFrame: 23, endFrame: 55, charX: 28, charScale: 0.92 },
+  { id: 'work', index: 2, navLabel: 'Work', heightVh: 460, startFrame: 56, endFrame: 90, charX: 74, charScale: 0.90 },
+  { id: 'journey', index: 3, navLabel: 'Journey', heightVh: 240, startFrame: 91, endFrame: 102, charX: 26, charScale: 0.92 },
+  { id: 'skills', index: 4, navLabel: 'Toolkit', heightVh: 280, startFrame: 103, endFrame: 108, charX: 50, charScale: 0.95 },
+  { id: 'highlights', index: 5, navLabel: 'Tracks', heightVh: 320, startFrame: 109, endFrame: 114, charX: 72, charScale: 0.90 },
+  { id: 'contact', index: 6, navLabel: 'Contact', heightVh: 240, startFrame: 115, endFrame: 119, charX: 50, charScale: 1.00 },
 ];
 
 export interface ScrollState {
@@ -33,7 +34,9 @@ export interface ScrollState {
   bladeActive: boolean;
   bladeProgress: number; // 0 to 1 during transition
   incomingScene?: SceneConfig;
-  targetVideoTime: number;
+  currentFrame: number; // Exact frame index to render on canvas
+  charX: number;
+  charScale: number;
 }
 
 type ScrollSubscriber = (state: ScrollState) => void;
@@ -52,13 +55,14 @@ class ScrollDirector {
     sceneProgress: 0,
     bladeActive: false,
     bladeProgress: 0,
-    targetVideoTime: SCENES[0].videoTime,
+    currentFrame: 0,
+    charX: SCENES[0].charX,
+    charScale: SCENES[0].charScale,
   };
 
   public init() {
     if (typeof window === 'undefined') return;
 
-    // Set scrollRestoration manual
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
@@ -126,7 +130,6 @@ class ScrollDirector {
     const maxScroll = Math.max(1, this.state.totalScrollHeight);
     this.state.overallProgress = Math.min(1, Math.max(0, currentScrollY / maxScroll));
 
-    // Determine active scene based on section DOM positions
     let currentActive = SCENES[0];
     let sceneProgress = 0;
     let nextScene: SceneConfig | undefined;
@@ -138,16 +141,15 @@ class ScrollDirector {
       const el = document.getElementById(scene.id);
       if (!el) continue;
 
-      const rect = el.getBoundingClientRect();
       const top = el.offsetTop;
       const height = el.offsetHeight;
 
       if (currentScrollY >= top && currentScrollY < top + height) {
         currentActive = scene;
-        sceneProgress = (currentScrollY - top) / Math.max(1, height);
+        sceneProgress = Math.min(1, Math.max(0, (currentScrollY - top) / Math.max(1, height)));
         nextScene = SCENES[i + 1];
 
-        // Check if in blade transition zone (last 15% of section)
+        // Blade transition active in the final 15% of section
         if (sceneProgress > 0.85 && nextScene) {
           bladeActive = true;
           bladeProgress = (sceneProgress - 0.85) / 0.15;
@@ -156,10 +158,16 @@ class ScrollDirector {
       }
     }
 
-    // Interpolate target video timestamp
-    let targetVideo = currentActive.videoTime;
+    // Calculate exact character frame index within the active scene
+    let frame = currentActive.startFrame + (currentActive.endFrame - currentActive.startFrame) * sceneProgress;
+    let charX = currentActive.charX;
+    let charScale = currentActive.charScale;
+
+    // Smoothly interpolate position and frame during blade transition
     if (bladeActive && nextScene) {
-      targetVideo = currentActive.videoTime + (nextScene.videoTime - currentActive.videoTime) * bladeProgress;
+      charX = currentActive.charX + (nextScene.charX - currentActive.charX) * bladeProgress;
+      charScale = currentActive.charScale + (nextScene.charScale - currentActive.charScale) * bladeProgress;
+      frame = currentActive.endFrame + (nextScene.startFrame - currentActive.endFrame) * bladeProgress;
     }
 
     this.state.activeScene = currentActive;
@@ -167,9 +175,10 @@ class ScrollDirector {
     this.state.incomingScene = nextScene;
     this.state.bladeActive = bladeActive;
     this.state.bladeProgress = bladeProgress;
-    this.state.targetVideoTime = targetVideo;
+    this.state.currentFrame = Math.round(frame);
+    this.state.charX = charX;
+    this.state.charScale = charScale;
 
-    // Notify subscribers
     this.subscribers.forEach((cb) => cb(this.state));
   }
 

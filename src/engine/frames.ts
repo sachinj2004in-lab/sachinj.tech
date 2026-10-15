@@ -1,76 +1,95 @@
+export interface ShotBoundary {
+  name: string;
+  startFrame: number;
+  endFrame: number;
+  charX: number;
+  scale: number;
+}
+
 export interface FrameManifest {
   fps: number;
   totalFrames: number;
   width: number;
   height: number;
-  shots: {
-    name: string;
-    startFrame: number;
-    endFrame: number;
-    startTime: number;
-    endTime: number;
-  }[];
+  shots: ShotBoundary[];
 }
 
 class FrameLoader {
   private isLoaded = false;
   private loadProgress = 0;
   private listeners: Set<(progress: number) => void> = new Set();
+  private frames: (HTMLImageElement | null)[] = [];
   private posterImage: HTMLImageElement | null = null;
-  private characterVideo: HTMLVideoElement | null = null;
+  private isMobile = false;
 
   public manifest: FrameManifest = {
-    fps: 30,
-    totalFrames: 300,
-    width: 1600,
-    height: 900,
+    fps: 12,
+    totalFrames: 120,
+    width: 640,
+    height: 360,
     shots: [
-      { name: 'hero', startFrame: 0, endFrame: 54, startTime: 0.0, endTime: 1.8 },
-      { name: 'about', startFrame: 84, endFrame: 138, startTime: 2.8, endTime: 4.6 },
-      { name: 'work', startFrame: 150, endFrame: 216, startTime: 5.0, endTime: 7.2 },
-      { name: 'journey', startFrame: 234, endFrame: 264, startTime: 7.8, endTime: 8.8 },
-      { name: 'skills', startFrame: 240, endFrame: 270, startTime: 8.0, endTime: 9.0 },
-      { name: 'contact', startFrame: 264, endFrame: 299, startTime: 8.8, endTime: 9.9 },
+      { name: 'hero', startFrame: 0, endFrame: 22, charX: 72, scale: 0.95 },
+      { name: 'about', startFrame: 23, endFrame: 55, charX: 28, scale: 0.92 },
+      { name: 'work', startFrame: 56, endFrame: 90, charX: 74, scale: 0.90 },
+      { name: 'journey', startFrame: 91, endFrame: 102, charX: 26, scale: 0.92 },
+      { name: 'skills', startFrame: 103, endFrame: 108, charX: 50, scale: 0.95 },
+      { name: 'highlights', startFrame: 109, endFrame: 114, charX: 72, scale: 0.90 },
+      { name: 'contact', startFrame: 115, endFrame: 119, charX: 50, scale: 1.00 },
     ],
   };
 
   public init(): Promise<void> {
     return new Promise((resolve) => {
-      let loadedCount = 0;
-      const totalToLoad = 2;
+      if (typeof window === 'undefined') {
+        resolve();
+        return;
+      }
 
-      const updateProgress = () => {
-        loadedCount++;
-        this.loadProgress = Math.min(100, Math.round((loadedCount / totalToLoad) * 100));
-        this.listeners.forEach((cb) => cb(this.loadProgress));
-        if (loadedCount >= totalToLoad) {
-          this.isLoaded = true;
-          resolve();
-        }
-      };
+      this.isMobile = window.innerWidth < 820;
+      const folder = this.isMobile ? 'sm' : 'lg';
+      const total = this.manifest.totalFrames;
+      this.frames = new Array(total).fill(null);
 
-      // Preload portrait fallback
+      // Preload static fallback portrait
       this.posterImage = new Image();
       this.posterImage.src = './assets/sachin.jpg';
-      this.posterImage.onload = updateProgress;
-      this.posterImage.onerror = updateProgress;
 
-      // Preload character video metadata
-      this.characterVideo = document.createElement('video');
-      this.characterVideo.src = './assets/character.mp4';
-      this.characterVideo.preload = 'auto';
-      this.characterVideo.muted = true;
-      this.characterVideo.playsInline = true;
+      let loadedCount = 0;
+      const priorityCount = 15; // First 15 frames for immediate playback
 
-      const onCanPlay = () => {
-        this.characterVideo?.removeEventListener('canplaythrough', onCanPlay);
-        updateProgress();
+      const loadSingleFrame = (idx: number, isPriority: boolean): Promise<void> => {
+        return new Promise((frameResolve) => {
+          const img = new Image();
+          const frameNum = String(idx).padStart(3, '0');
+          img.src = `./frames/${folder}/frame_${frameNum}.png`;
+
+          img.onload = () => {
+            this.frames[idx] = img;
+            loadedCount++;
+            this.loadProgress = Math.min(100, Math.round((loadedCount / priorityCount) * 100));
+            this.listeners.forEach((cb) => cb(this.loadProgress));
+
+            if (isPriority && loadedCount >= priorityCount && !this.isLoaded) {
+              this.isLoaded = true;
+              resolve();
+            }
+            frameResolve();
+          };
+
+          img.onerror = () => {
+            loadedCount++;
+            frameResolve();
+          };
+        });
       };
 
-      this.characterVideo.addEventListener('canplaythrough', onCanPlay);
-      this.characterVideo.load();
+      // 1. Load priority frames first (Hero start)
+      const priorityPromises: Promise<void>[] = [];
+      for (let i = 0; i < priorityCount; i++) {
+        priorityPromises.push(loadSingleFrame(i, true));
+      }
 
-      // Safety timeout so preloader does not stall
+      // Safety timeout in case of network stall
       setTimeout(() => {
         if (!this.isLoaded) {
           this.isLoaded = true;
@@ -78,7 +97,14 @@ class FrameLoader {
           this.listeners.forEach((cb) => cb(100));
           resolve();
         }
-      }, 2500);
+      }, 2000);
+
+      // 2. Once priority frames load, stream the remaining frames in the background
+      Promise.all(priorityPromises).then(() => {
+        for (let i = priorityCount; i < total; i++) {
+          loadSingleFrame(i, false);
+        }
+      });
     });
   }
 
@@ -88,11 +114,37 @@ class FrameLoader {
     return () => this.listeners.delete(cb);
   }
 
-  public getVideoElement(): HTMLVideoElement | null {
-    return this.characterVideo;
+  public getFrame(index: number): HTMLImageElement | null {
+    const clampedIndex = Math.max(0, Math.min(this.manifest.totalFrames - 1, Math.round(index)));
+    
+    // Return exact frame if loaded
+    if (this.frames[clampedIndex]) {
+      return this.frames[clampedIndex];
+    }
+
+    // Find nearest loaded frame within the same shot
+    const currentShot = this.manifest.shots.find(
+      (s) => clampedIndex >= s.startFrame && clampedIndex <= s.endFrame
+    );
+
+    if (currentShot) {
+      for (let offset = 1; offset <= 20; offset++) {
+        const prev = clampedIndex - offset;
+        if (prev >= currentShot.startFrame && this.frames[prev]) {
+          return this.frames[prev];
+        }
+        const next = clampedIndex + offset;
+        if (next <= currentShot.endFrame && this.frames[next]) {
+          return this.frames[next];
+        }
+      }
+    }
+
+    // Fallback to frame 0 or poster
+    return this.frames[0] || this.posterImage;
   }
 
-  public getPosterImage(): HTMLImageElement | null {
+  public getPoster(): HTMLImageElement | null {
     return this.posterImage;
   }
 }

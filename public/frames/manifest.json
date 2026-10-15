@@ -1,60 +1,55 @@
 {
-  "fps": 30,
-  "totalFrames": 300,
-  "width": 1600,
-  "height": 900,
+  "fps": 12,
+  "totalFrames": 120,
+  "width": 640,
+  "height": 360,
   "shots": [
     {
       "name": "hero",
       "startFrame": 0,
-      "endFrame": 54,
-      "startTime": 0.0,
-      "endTime": 1.8,
+      "endFrame": 22,
       "charX": 72,
       "scale": 0.95
     },
     {
       "name": "about",
-      "startFrame": 84,
-      "endFrame": 138,
-      "startTime": 2.8,
-      "endTime": 4.6,
+      "startFrame": 23,
+      "endFrame": 55,
       "charX": 28,
       "scale": 0.92
     },
     {
       "name": "work",
-      "startFrame": 150,
-      "endFrame": 216,
-      "startTime": 5.0,
-      "endTime": 7.2,
+      "startFrame": 56,
+      "endFrame": 90,
       "charX": 74,
       "scale": 0.90
     },
     {
       "name": "journey",
-      "startFrame": 234,
-      "endFrame": 264,
-      "startTime": 7.8,
-      "endTime": 8.8,
+      "startFrame": 91,
+      "endFrame": 102,
       "charX": 26,
       "scale": 0.92
     },
     {
       "name": "skills",
-      "startFrame": 240,
-      "endFrame": 270,
-      "startTime": 8.0,
-      "endTime": 9.0,
+      "startFrame": 103,
+      "endFrame": 108,
       "charX": 50,
       "scale": 0.95
     },
     {
+      "name": "highlights",
+      "startFrame": 109,
+      "endFrame": 114,
+      "charX": 72,
+      "scale": 0.90
+    },
+    {
       "name": "contact",
-      "startFrame": 264,
-      "endFrame": 299,
-      "startTime": 8.8,
-      "endTime": 9.9,
+      "startFrame": 115,
+      "endFrame": 119,
       "charX": 50,
       "scale": 1.00
     }
