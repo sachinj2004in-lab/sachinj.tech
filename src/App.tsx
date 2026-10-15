@@ -3,7 +3,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { useLenisSmoothScroll } from './hooks/useLenisSmoothScroll';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { CharacterShowcase } from './components/CharacterShowcase';
 import { About } from './components/About';
 import { Projects } from './components/Projects';
 import { Timeline } from './components/Timeline';
@@ -17,7 +16,7 @@ const MainLayout: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
 
   useEffect(() => {
-    const sections = ['hero', 'about', 'projects', 'journey', 'skills', 'highlights', 'contact'];
+    const sections = ['hero', 'about', 'projects', 'journey', 'skills', 'tracks', 'contact'];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 250;
@@ -42,11 +41,10 @@ const MainLayout: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 dark:bg-[#08090C] dark:text-neutral-100 transition-colors duration-300">
+    <div className="min-h-screen bg-white text-neutral-900 dark:bg-[#09090B] dark:text-neutral-100 transition-colors duration-300 antialiased selection:bg-[#FF1F1F] selection:text-white">
       <Navbar activeSection={activeSection} />
       <main>
         <Hero />
-        <CharacterShowcase />
         <About />
         <Projects />
         <Timeline />

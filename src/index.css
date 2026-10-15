@@ -4,19 +4,68 @@
 
 :root {
   --accent: #FF1F1F;
-  --accent-muted: rgba(255, 31, 31, 0.1);
   --bg-primary: #FFFFFF;
-  --text-primary: #0F1117;
-  --border-subtle: rgba(0, 0, 0, 0.08);
+  --text-primary: #0A0A0A;
 }
 
 .dark {
-  --bg-primary: #08090C;
-  --text-primary: #F3F4F6;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --bg-primary: #09090B;
+  --text-primary: #F4F4F5;
 }
 
-/* Smooth Scrolling Setup */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 31, 31, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF1F1F;
+}
+
+/* Character Blend: blends studio background into clean white canvas */
+.character-blend {
+  mix-blend-mode: multiply;
+}
+.dark .character-blend {
+  mix-blend-mode: screen;
+}
+
+/* Continuous Marquee Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 22s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* 3D Perspective for Tracks Carousel */
+.perspective-container {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Smooth motion setup */
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -25,83 +74,11 @@ html.lenis, html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(160, 160, 160, 0.3);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #FF1F1F;
-}
-
-/* Technical grid background */
-.tech-grid-light {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-}
-
-.tech-grid-dark {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-}
-
-/* Subtle dot matrix */
-.dot-matrix {
-  background-size: 24px 24px;
-  background-image: radial-gradient(circle, currentColor 0.75px, transparent 0.75px);
-}
-
-/* Editorial line clamp & display */
-.editorial-title {
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
-
-/* Engineering Micro-badge */
-.micro-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-/* Subtle glassmorphism */
-.glass-panel {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

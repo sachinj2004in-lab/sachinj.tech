@@ -25,9 +25,10 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Space Grotesk', 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
-        display: ['Syne', 'Space Grotesk', 'sans-serif'],
+        display: ['"Bebas Neue"', 'Oswald', 'sans-serif'],
+        condensed: ['Oswald', '"Bebas Neue"', 'sans-serif'],
       },
       letterSpacing: {
         widest: '.2em',

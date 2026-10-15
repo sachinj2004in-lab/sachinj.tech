@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight, Cpu } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
@@ -13,19 +13,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { id: 'hero', label: '01 // HOME' },
-    { id: 'about', label: '02 // ABOUT' },
-    { id: 'projects', label: '03 // PROJECTS' },
-    { id: 'journey', label: '04 // JOURNEY' },
-    { id: 'skills', label: '05 // SKILLS' },
-    { id: 'contact', label: '06 // CONTACT' },
+  const navLinks = [
+    { id: 'about', label: 'About' },
+    { id: 'projects', label: 'Work' },
+    { id: 'journey', label: 'Journey' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'tracks', label: 'Tracks' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   const scrollTo = (id: string) => {
@@ -40,84 +40,69 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'py-3.5 bg-white/85 dark:bg-[#08090C]/85 backdrop-blur-md border-b border-black/[0.08] dark:border-white/[0.08] shadow-sm'
+          ? 'py-3 bg-white/90 dark:bg-[#09090B]/90 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.08] shadow-sm'
           : 'py-5 bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand / Logo */}
+        {/* Brand Logo matching reference: SACHIN* */}
         <button
           onClick={() => scrollTo('hero')}
-          className="group flex items-center gap-2.5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF1F1F]"
+          className="group flex items-center gap-2 focus:outline-none text-left"
           aria-label="Sachin J - Home"
         >
-          <div className="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center transition-transform group-hover:scale-105 group-hover:border-[#FF1F1F]">
-            <Cpu className="w-4 h-4 text-[#FF1F1F]" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs tracking-wider font-bold text-neutral-900 dark:text-neutral-100 uppercase">
-                SACHIN J
-              </span>
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF1F1F] animate-pulse" />
-            </div>
-            <span className="block font-mono text-[10px] text-neutral-500 dark:text-neutral-400 tracking-wider">
-              EMBEDDED // DEV
-            </span>
-          </div>
+          <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-950 dark:text-white uppercase transition-colors group-hover:text-[#FF1F1F]">
+            SACHIN<span className="text-[#FF1F1F] font-sans font-black ml-0.5">*</span>
+          </span>
+          <span className="hidden sm:inline-block font-mono text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest pl-1 border-l border-neutral-300 dark:border-neutral-700">
+            EMBEDDED DEV
+          </span>
         </button>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1.5 lg:gap-3 bg-neutral-100/70 dark:bg-neutral-900/70 p-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.06] backdrop-blur-sm">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
+        {/* Desktop Nav Links matching reference */}
+        <nav className="hidden md:flex items-center gap-2 lg:gap-3 bg-neutral-100/80 dark:bg-neutral-900/80 px-4 py-1.5 rounded-full border border-black/[0.05] dark:border-white/[0.08] backdrop-blur-sm">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
             return (
               <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className={`px-3 py-1.5 rounded-full font-mono text-xs transition-all duration-200 ${
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className={`px-3 py-1 rounded-full text-xs font-sans transition-all duration-200 ${
                   isActive
-                    ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-950 shadow-sm font-semibold'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50'
+                    ? 'bg-[#FF1F1F] text-white font-semibold shadow-sm'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-white/60 dark:hover:bg-neutral-800/60'
                 }`}
               >
-                {item.label}
+                {link.label}
               </button>
             );
           })}
         </nav>
 
-        {/* Action Controls: Status, Theme Toggle, Contact CTA */}
-        <div className="hidden lg:flex items-center gap-3">
-          <div className="flex items-center gap-2 px-2.5 py-1 rounded border border-neutral-200 dark:border-neutral-800 text-[10px] font-mono text-neutral-600 dark:text-neutral-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span>OPEN FOR ROLES</span>
-          </div>
-
-          {/* Theme Toggle */}
+        {/* Right Actions: Theme Toggle & Red CTA Pill */}
+        <div className="hidden md:flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:text-[#FF1F1F] dark:hover:text-[#FF1F1F] hover:border-[#FF1F1F] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF1F1F]"
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:text-[#FF1F1F] transition-colors"
+            aria-label="Toggle Theme"
           >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            {theme === 'light' ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
           </button>
 
-          {/* Direct CTA */}
           <button
             onClick={() => scrollTo('contact')}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded font-mono text-xs font-semibold bg-[#FF1F1F] text-white hover:bg-[#E01616] transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-semibold bg-[#FF1F1F] text-white hover:bg-[#E01616] transition-all shadow-md shadow-red-500/10 active:scale-95"
           >
-            <span>GET IN TOUCH</span>
+            <span>Contact Me</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Mobile Menu & Theme Buttons */}
+        {/* Mobile Buttons */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300"
+            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300"
             aria-label="Toggle Theme"
           >
             {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -125,9 +110,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100"
-            aria-label="Toggle Mobile Menu"
-            aria-expanded={mobileMenuOpen}
+            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white"
+            aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -136,40 +120,31 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-2 border-b border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-[#0B0D12]/95 backdrop-blur-xl px-5 py-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-neutral-100 dark:border-neutral-800">
-            <span className="font-mono text-[10px] text-neutral-500 tracking-widest uppercase">
-              NAVIGATION
-            </span>
-            <span className="font-mono text-[10px] text-[#FF1F1F] font-bold">
-              COIMBATORE // ECE
-            </span>
-          </div>
-
+        <div className="md:hidden mt-2 mx-4 p-5 rounded-2xl bg-white/95 dark:bg-[#09090B]/95 border border-neutral-200 dark:border-neutral-800 shadow-2xl backdrop-blur-xl space-y-3">
           <div className="flex flex-col space-y-1">
-            {navItems.map((item) => (
+            {navLinks.map((link) => (
               <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className={`py-2.5 px-3 rounded text-left font-mono text-sm transition-colors flex items-center justify-between ${
-                  activeSection === item.id
-                    ? 'bg-neutral-100 dark:bg-neutral-900 text-[#FF1F1F] font-bold'
-                    : 'text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white'
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className={`py-2 px-3 rounded-lg text-left text-sm font-sans flex items-center justify-between ${
+                  activeSection === link.id
+                    ? 'bg-[#FF1F1F] text-white font-bold'
+                    : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900'
                 }`}
               >
-                <span>{item.label}</span>
-                <span className="text-xs text-neutral-400">→</span>
+                <span>{link.label}</span>
+                <span className="text-xs opacity-60">→</span>
               </button>
             ))}
           </div>
 
-          <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800">
+          <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
             <button
               onClick={() => scrollTo('contact')}
-              className="w-full py-2.5 rounded font-mono text-xs font-bold bg-[#FF1F1F] text-white flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-full text-xs font-bold bg-[#FF1F1F] text-white flex items-center justify-center gap-1.5"
             >
-              <span>CONTACT SACHIN J</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Contact Sachin J</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>

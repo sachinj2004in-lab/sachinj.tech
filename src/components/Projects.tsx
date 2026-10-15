@@ -1,299 +1,266 @@
-import React from 'react';
-import { ProjectItem } from '../types';
-import { ArrowUpRight, Cpu, Radio, Bot, Mic, Wind, ShieldAlert } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowUpRight, ArrowLeft, ArrowRight, Bot, Mic, Radio, Wind, Activity } from 'lucide-react';
+import { CharacterVideo } from './CharacterVideo';
 
-const projectsData: ProjectItem[] = [
+interface Project {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+  metrics: { label: string; value: string };
+  cardType: 'robot' | 'jarvis' | 'drone' | 'iot';
+}
+
+const projects: Project[] = [
   {
     id: 'road-cleaning-robot',
-    title: 'Autonomous Road-Cleaning Robot',
-    category: 'Autonomous Robotics & Actuation',
-    status: 'In Progress',
+    number: '01 / 04',
+    title: 'AUTONOMOUS ROAD-CLEANING ROBOT',
+    category: 'AUTONOMOUS ROBOTICS & MOTOR CONTROL',
     description:
-      'An automated surface-cleaning robotic platform designed for autonomous path traversal and debris clearing. Incorporates ultrasonic and infrared sensor arrays for obstacle avoidance, coupled with dual H-bridge motor driver circuits running real-time state machine firmware.',
-    tags: ['Embedded C', 'Motor Control', 'Sensor Interfacing', 'State Machine', 'Arduino / AVR'],
-    specs: [
-      { label: 'Firmware Logic', value: 'Non-blocking State Machine' },
-      { label: 'Actuation', value: 'High-torque DC Motors + Sweep Mechanism' },
-      { label: 'Obstacle Detection', value: 'Ultrasonic Array + IR Fallback' },
-    ],
-    diagramType: 'robot',
+      'An automated debris-clearance chassis engineered for autonomous path traversal and surface sweeping. Integrates ultrasonic proximity arrays for obstacle navigation coupled with dual H-bridge motor driver circuits running real-time non-blocking state machine firmware.',
+    tags: ['Embedded C', 'Motor Control (L298N)', 'Sensor Interfacing', 'State Machine'],
+    metrics: { label: 'SWEEP EFFICIENCY', value: '88%' },
+    cardType: 'robot',
   },
   {
     id: 'jarvis-ai-assistant',
-    title: 'J.A.R.V.I.S Personal AI Assistant',
-    category: 'Edge AI & Automated Systems',
-    status: 'In Progress',
+    number: '02 / 04',
+    title: 'J.A.R.V.I.S PERSONAL AI ASSISTANT',
+    category: 'EDGE AI & SYSTEM AUTOMATION',
     description:
-      'A voice-driven intelligent system designed for desktop workflow automation and peripheral hardware telemetry. Built with Python to process natural speech commands, execute script routines, and communicate with external edge hardware controllers.',
-    tags: ['Python', 'Speech Recognition', 'Automation', 'Serial Communication'],
-    specs: [
-      { label: 'Core Language', value: 'Python 3.x' },
-      { label: 'Audio Engine', value: 'Speech Recognition & TTS Synthesis' },
-      { label: 'Hardware Interlink', value: 'PySerial Telemetry Dispatcher' },
-    ],
-    diagramType: 'jarvis',
+      'A voice-driven intelligent system designed for automated workflow processing and hardware telemetry. Written in Python to decode natural speech commands, trigger local execution scripts, and communicate directly with peripheral microcontrollers over serial UART.',
+    tags: ['Python', 'Speech Recognition', 'Hardware Automation', 'PySerial UART'],
+    metrics: { label: 'NLP RESPONSE', value: '94%' },
+    cardType: 'jarvis',
   },
   {
     id: 'ai-assisted-drone',
-    title: 'AI-Assisted Drone System',
-    category: 'Aeronautical Telemetry & Control',
-    status: 'In Progress',
+    number: '03 / 04',
+    title: 'AI-ASSISTED DRONE SYSTEM',
+    category: 'AERONAUTICAL TELEMETRY & STABILITY',
     description:
-      'An unmanned aerial vehicle prototype focusing on sensor telemetry integration, flight stabilization assistance, and telemetry communication. Designed to monitor IMU orientation data and assist flight maneuvers via Python-assisted ground processing.',
-    tags: ['Flight Dynamics', 'Sensor Interfacing', 'Python', 'Telemetry Processing'],
-    specs: [
-      { label: 'Telemetry Stream', value: 'IMU / Gyroscope / Accelerometer' },
-      { label: 'Signal Protocol', value: 'RF Serial Link / Wireless MavLink' },
-      { label: 'Assistance Model', value: 'Stability Vector Logic' },
-    ],
-    diagramType: 'drone',
+      'An unmanned aerial prototype focusing on multi-sensor telemetry streaming, flight stability assistance, and wireless telemetry communication. Processes 6-axis IMU orientation vectors to assist aerial navigation and prevent loss-of-signal drift.',
+    tags: ['Flight Dynamics', 'Sensor Interfacing', 'Python Telemetry', 'RF Link'],
+    metrics: { label: 'STABILITY LOCK', value: '96%' },
+    cardType: 'drone',
   },
   {
     id: 'iot-air-quality',
-    title: 'IoT Air-Quality Monitoring System',
-    category: 'Environmental Sensing & Cloud IoT',
-    status: 'In Progress',
+    number: '04 / 04',
+    title: 'IOT AIR-QUALITY MONITORING',
+    category: 'ENVIRONMENTAL SENSING & CLOUD IOT',
     description:
-      'A real-time atmospheric sensing station powered by an ESP32 microcontroller. Continuously samples hazardous particulate and gas concentrations via an MQ-135 sensor, presents instant readings on a 16x2 I2C LCD, and dispatches data streams over Wi-Fi to the ThingSpeak cloud analytics platform.',
-    tags: ['ESP32', 'MQ-135 Gas Sensor', '16x2 LCD (I2C)', 'ThingSpeak IoT', 'Wi-Fi HTTP API'],
-    specs: [
-      { label: 'Processing Core', value: 'ESP32 Dual-Core (Wi-Fi Enabled)' },
-      { label: 'Sensing Element', value: 'MQ-135 Hazardous Gas Transducer' },
-      { label: 'Cloud Pipeline', value: 'ThingSpeak RESTful IoT Feed' },
-    ],
-    diagramType: 'iot',
+      'A real-time atmospheric sensing station powered by an ESP32 microcontroller. Samples hazardous gas concentrations with an MQ-135 sensor, displays instant telemetry on a 16x2 I2C LCD, and streams telemetry feeds to the ThingSpeak cloud channel via Wi-Fi.',
+    tags: ['ESP32', 'MQ-135 Gas Sensor', '16x2 I2C LCD', 'ThingSpeak Cloud API'],
+    metrics: { label: 'CLOUD UPTIME', value: '99%' },
+    cardType: 'iot',
   },
 ];
 
 export const Projects: React.FC = () => {
-  return (
-    <section id="projects" className="relative py-28 overflow-hidden bg-neutral-50/50 dark:bg-neutral-950/40">
-      {/* Background Accent Grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-15 tech-grid-light dark:tech-grid-dark" />
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentProject = projects[currentIndex];
 
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  return (
+    <section id="projects" className="relative py-28 overflow-hidden bg-white dark:bg-[#09090B] border-t border-neutral-100 dark:border-neutral-900">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-neutral-200 dark:border-neutral-800">
-          <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-[#FF1F1F] mb-2 font-bold tracking-wider">
-              <span>// 03. ENGINEERING REPOSITORY</span>
-            </div>
-            <h2 className="text-4xl sm:text-6xl font-display font-extrabold tracking-tight text-neutral-950 dark:text-white">
-              PROJECT <span className="text-[#FF1F1F]">PORTFOLIO</span>
-            </h2>
-            <p className="text-sm font-sans text-neutral-600 dark:text-neutral-400 max-w-xl mt-3">
-              Four verified embedded hardware and intelligent automation systems currently in active development.
-            </p>
+        
+        {/* Section Header matching reference */}
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-neutral-100 dark:border-neutral-800">
+          <div className="font-mono text-xs text-neutral-500 tracking-wider">
+            <span>[ 03 — SELECTED WORK ]</span>
           </div>
 
-          <div className="text-right">
-            <span className="font-display font-black text-6xl sm:text-8xl text-neutral-200 dark:text-neutral-800/80 leading-none select-none">
-              03
-            </span>
+          <div className="font-display text-2xl sm:text-3xl font-extrabold text-neutral-950 dark:text-white">
+            {currentProject.number}
           </div>
         </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projectsData.map((project, index) => (
-            <div
-              key={project.id}
-              className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0D0F14] overflow-hidden transition-all duration-300 hover:border-neutral-400 dark:hover:border-neutral-700 hover:shadow-xl flex flex-col justify-between"
-            >
-              {/* Card Technical Header */}
-              <div className="p-6 pb-4 border-b border-neutral-100 dark:border-neutral-800/80 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs font-bold text-neutral-400 dark:text-neutral-500">
-                    0{index + 1} //
-                  </span>
-                  <span className="font-mono text-xs text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                </div>
+        {/* 3-Column Split: Details on Left | Red UI Card in Center | Sachin on Laptop on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[520px]">
+          
+          {/* Left Column: Project Typography & Links (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="font-mono text-xs text-[#FF1F1F] font-bold tracking-wider uppercase">
+              {currentProject.category}
+            </div>
 
-                {/* In Progress Status Badge */}
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono text-[11px] font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  <span>{project.status}</span>
-                </div>
-              </div>
+            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-neutral-950 dark:text-white uppercase leading-[0.92] tracking-tight">
+              {currentProject.title}
+            </h3>
 
-              {/* Technical Schematic Illustration */}
-              <div className="relative h-48 bg-neutral-100 dark:bg-neutral-900/60 border-b border-neutral-100 dark:border-neutral-800/80 p-4 flex items-center justify-center overflow-hidden">
-                {/* Schematic Background Matrix */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none tech-grid-light dark:tech-grid-dark" />
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 font-sans leading-relaxed">
+              {currentProject.description}
+            </p>
 
-                {project.diagramType === 'robot' && (
-                  <div className="w-full max-w-xs space-y-3 font-mono text-[10px] text-neutral-500">
-                    <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-3 bg-white/80 dark:bg-neutral-900/80 space-y-2">
-                      <div className="flex justify-between items-center text-neutral-800 dark:text-neutral-200 font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <Bot className="w-3.5 h-3.5 text-[#FF1F1F]" />
-                          CHASSIS // DUAL-MOTOR CONTROLLER
-                        </span>
-                        <span className="text-[#FF1F1F]">ACTIVE</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-[10px]">
-                        <div className="p-1 rounded bg-neutral-100 dark:bg-neutral-800 text-center">
-                          LEFT WHEEL: PWM 65%
-                        </div>
-                        <div className="p-1 rounded bg-neutral-100 dark:bg-neutral-800 text-center">
-                          RIGHT WHEEL: PWM 65%
-                        </div>
-                      </div>
-                      <div className="flex justify-between text-neutral-400 pt-1 border-t border-neutral-200 dark:border-neutral-800">
-                        <span>ULTRASONIC ECHO: CLEAR</span>
-                        <span>SWEEP MOTOR: ON</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.diagramType === 'jarvis' && (
-                  <div className="w-full max-w-xs space-y-3 font-mono text-[10px] text-neutral-500">
-                    <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-3 bg-white/80 dark:bg-neutral-900/80 space-y-2">
-                      <div className="flex justify-between items-center text-neutral-800 dark:text-neutral-200 font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <Mic className="w-3.5 h-3.5 text-[#FF1F1F]" />
-                          VOICE ENGINE // AUDIO PIPELINE
-                        </span>
-                        <span className="text-emerald-500">LISTENING</span>
-                      </div>
-                      <div className="flex items-center justify-center gap-1 h-8 bg-neutral-100 dark:bg-neutral-800 rounded px-2">
-                        {[40, 75, 30, 90, 60, 45, 80, 25, 70, 50, 85, 35].map((h, i) => (
-                          <span
-                            key={i}
-                            style={{ height: `${h}%` }}
-                            className="w-1 bg-[#FF1F1F] rounded-full opacity-80"
-                          />
-                        ))}
-                      </div>
-                      <div className="flex justify-between text-neutral-400 pt-1 border-t border-neutral-200 dark:border-neutral-800">
-                        <span>NLP INTENT: EXEC_ROUTINE</span>
-                        <span>PY_SERIAL: COM3</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.diagramType === 'drone' && (
-                  <div className="w-full max-w-xs space-y-3 font-mono text-[10px] text-neutral-500">
-                    <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-3 bg-white/80 dark:bg-neutral-900/80 space-y-2">
-                      <div className="flex justify-between items-center text-neutral-800 dark:text-neutral-200 font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <Radio className="w-3.5 h-3.5 text-[#FF1F1F]" />
-                          FLIGHT TELEMETRY HUD // 6-AXIS IMU
-                        </span>
-                        <span className="text-blue-500">STREAMING</span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-1.5 text-center">
-                        <div className="p-1 rounded bg-neutral-100 dark:bg-neutral-800">
-                          <span className="block text-neutral-400">PITCH</span>
-                          <span className="text-neutral-800 dark:text-white font-bold">+1.2°</span>
-                        </div>
-                        <div className="p-1 rounded bg-neutral-100 dark:bg-neutral-800">
-                          <span className="block text-neutral-400">ROLL</span>
-                          <span className="text-neutral-800 dark:text-white font-bold">-0.4°</span>
-                        </div>
-                        <div className="p-1 rounded bg-neutral-100 dark:bg-neutral-800">
-                          <span className="block text-neutral-400">YAW</span>
-                          <span className="text-neutral-800 dark:text-white font-bold">142°</span>
-                        </div>
-                      </div>
-                      <div className="flex justify-between text-neutral-400 pt-1 border-t border-neutral-200 dark:border-neutral-800">
-                        <span>ALTITUDE: 12.4m</span>
-                        <span>LINK: 2.4GHz RF</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.diagramType === 'iot' && (
-                  <div className="w-full max-w-xs space-y-3 font-mono text-[10px] text-neutral-500">
-                    <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-3 bg-white/80 dark:bg-neutral-900/80 space-y-2">
-                      <div className="flex justify-between items-center text-neutral-800 dark:text-neutral-200 font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <Wind className="w-3.5 h-3.5 text-[#FF1F1F]" />
-                          ESP32 // MQ-135 SENSOR BUS
-                        </span>
-                        <span className="text-emerald-500">ONLINE</span>
-                      </div>
-                      <div className="p-2 rounded bg-neutral-900 text-emerald-400 font-mono text-[11px] flex justify-between border border-neutral-800">
-                        <span>PPM: 142 [NORMAL]</span>
-                        <span>I2C: 0x27</span>
-                      </div>
-                      <div className="flex justify-between text-neutral-400 pt-1 border-t border-neutral-200 dark:border-neutral-800">
-                        <span>SSID: CONNECTED</span>
-                        <span>THINGSPEAK: CH_UPDATE_OK</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Main Card Content */}
-              <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 dark:text-white group-hover:text-[#FF1F1F] transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-sans">
-                    {project.description}
-                  </p>
-                </div>
-
-                <div className="space-y-4 pt-4 border-t border-neutral-100 dark:border-neutral-800/80">
-                  {/* Specification Table */}
-                  <div className="grid grid-cols-1 gap-1.5 font-mono text-xs">
-                    {project.specs.map((spec, i) => (
-                      <div key={i} className="flex items-center justify-between text-neutral-600 dark:text-neutral-400">
-                        <span className="text-neutral-400 dark:text-neutral-500">{spec.label}</span>
-                        <span className="font-medium text-neutral-800 dark:text-neutral-200">{spec.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Technical Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-sm bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200 dark:border-neutral-700/60 font-mono text-[10px] text-neutral-700 dark:text-neutral-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Footer: GitHub Link Indicator */}
-              <div className="p-4 px-6 bg-neutral-50 dark:bg-neutral-900/40 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
-                <span className="font-mono text-[11px] text-neutral-500">
-                  DEVELOPMENT STAGE: ACTIVE PROTOTYPE
-                </span>
-
-                <a
-                  href="https://github.com/sachin2004-roxx"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-200 hover:text-[#FF1F1F] dark:hover:text-[#FF1F1F] transition-colors"
+            <div className="flex flex-wrap gap-2 pt-1">
+              {currentProject.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200/60 dark:border-neutral-700/60"
                 >
-                  <span>GITHUB PROFILE</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4 pt-4">
+              <a
+                href="https://github.com/sachin2004-roxx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold bg-[#FF1F1F] text-white hover:bg-[#E01616] transition-all shadow-md shadow-red-500/20 active:scale-95"
+              >
+                <span>View on GitHub</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+
+              {/* Navigation Arrows */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePrev}
+                  className="p-2.5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-black dark:hover:border-white text-neutral-800 dark:text-neutral-200 transition-colors"
+                  aria-label="Previous Project"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="p-2.5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-black dark:hover:border-white text-neutral-800 dark:text-neutral-200 transition-colors"
+                  aria-label="Next Project"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
+          </div>
+
+          {/* Center Column: The Signature Red UI Device Card matching reference (3 cols) */}
+          <div className="lg:col-span-3 flex justify-center">
+            <div className="w-full max-w-xs rounded-3xl bg-[#FF1F1F] text-white p-6 shadow-2xl shadow-red-600/30 flex flex-col justify-between aspect-[3/4] relative overflow-hidden transition-all duration-500 transform hover:scale-[1.02]">
+              
+              {/* Background Geometric Rings */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full border border-white/20 pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full border border-white/10 pointer-events-none" />
+
+              {/* Top of Red Card */}
+              <div className="flex items-center justify-between text-xs font-mono uppercase tracking-wider text-white/80 z-10">
+                <span>{currentProject.cardType.toUpperCase()} // SYS</span>
+                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              </div>
+
+              {/* Center Visualization of Red Card */}
+              <div className="my-auto text-center space-y-3 z-10">
+                {currentProject.cardType === 'robot' && (
+                  <div className="space-y-2">
+                    <div className="w-20 h-20 mx-auto rounded-full border-4 border-white flex items-center justify-center font-display font-black text-3xl">
+                      88
+                    </div>
+                    <div className="font-mono text-xs uppercase tracking-wider text-white/90">
+                      SWEEP MATRIX READY
+                    </div>
+                    <div className="text-[10px] font-mono text-white/70">
+                      PWM MOTOR DRIVE: ACTIVE
+                    </div>
+                  </div>
+                )}
+
+                {currentProject.cardType === 'jarvis' && (
+                  <div className="space-y-2">
+                    <div className="flex justify-center items-center gap-1.5 h-16">
+                      {[40, 70, 95, 60, 85, 45, 90, 30].map((h, i) => (
+                        <div
+                          key={i}
+                          style={{ height: `${h}%` }}
+                          className="w-2 bg-white rounded-full animate-pulse"
+                        />
+                      ))}
+                    </div>
+                    <div className="font-mono text-xs uppercase tracking-wider text-white/90">
+                      VOICE ENGINE ONLINE
+                    </div>
+                    <div className="text-[10px] font-mono text-white/70">
+                      SPEECH_TO_TEXT: LISTENING
+                    </div>
+                  </div>
+                )}
+
+                {currentProject.cardType === 'drone' && (
+                  <div className="space-y-2">
+                    <div className="w-20 h-20 mx-auto rounded-2xl border-2 border-dashed border-white/70 flex items-center justify-center font-display font-black text-2xl">
+                      IMU 6X
+                    </div>
+                    <div className="font-mono text-xs uppercase tracking-wider text-white/90">
+                      FLIGHT TELEMETRY
+                    </div>
+                    <div className="text-[10px] font-mono text-white/70">
+                      PITCH: +1.2° | ROLL: -0.4°
+                    </div>
+                  </div>
+                )}
+
+                {currentProject.cardType === 'iot' && (
+                  <div className="space-y-2">
+                    <div className="w-20 h-20 mx-auto rounded-full bg-white/20 flex items-center justify-center font-display font-black text-3xl">
+                      142
+                    </div>
+                    <div className="font-mono text-xs uppercase tracking-wider text-white/90">
+                      MQ-135 AIR QUALITY
+                    </div>
+                    <div className="text-[10px] font-mono text-white/70">
+                      THINGSPEAK STREAM: OK
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom of Red Card */}
+              <div className="pt-4 border-t border-white/20 flex items-center justify-between text-[11px] font-mono z-10">
+                <span className="text-white/80">IN PROGRESS</span>
+                <span className="font-bold">PROTOTYPE V1</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Sachin seated at desk typing on his laptop (4 cols) */}
+          <div className="lg:col-span-4 relative flex items-center justify-center">
+            <div className="w-full max-w-sm aspect-[4/5] flex items-center justify-center">
+              <CharacterVideo
+                segment="projects"
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* Project Selector Pagination Dots matching reference */}
+        <div className="flex justify-center items-center gap-3 pt-10">
+          {projects.map((p, index) => (
+            <button
+              key={p.id}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentIndex === index
+                  ? 'w-8 bg-[#FF1F1F]'
+                  : 'w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400'
+              }`}
+              aria-label={`Select Project ${index + 1}`}
+            />
           ))}
         </div>
 
-        {/* Verified Notice Note */}
-        <div className="mt-12 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center gap-3 text-xs font-mono text-neutral-500 max-w-2xl mx-auto">
-          <ShieldAlert className="w-4 h-4 text-[#FF1F1F] shrink-0" />
-          <span>
-            Engineering Integrity Note: All 4 projects are authentic ongoing undertakings. Project documentation and code repositories are published as milestones reach validation stages.
-          </span>
-        </div>
       </div>
     </section>
   );
