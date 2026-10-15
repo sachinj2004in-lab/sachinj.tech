@@ -4,40 +4,29 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        accent: {
-          DEFAULT: '#FF1F1F',
-          hover: '#E01616',
+        red: {
+          DEFAULT: '#ff1f1f',
+          hover: '#e01616',
           muted: 'rgba(255, 31, 31, 0.12)',
-          glow: 'rgba(255, 31, 31, 0.35)',
         },
-        cinematic: {
-          black: '#0A0B0E',
-          dark: '#12141A',
-          card: '#161922',
-          border: 'rgba(255, 255, 255, 0.08)',
-          light: '#F8F9FA',
-          lightCard: '#FFFFFF',
-          lightBorder: 'rgba(0, 0, 0, 0.08)',
-        }
+        ink: '#0d0d0d',
+        paper: '#ffffff',
+        muted: '#5e5e5e',
+        hairline: 'rgba(13, 13, 13, 0.09)',
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
-        display: ['"Bebas Neue"', 'Oswald', 'sans-serif'],
-        condensed: ['Oswald', '"Bebas Neue"', 'sans-serif'],
+        display: ['Anton', 'sans-serif'],
+        sans: ['"Inter Tight Variable"', '"Inter Tight"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       letterSpacing: {
-        widest: '.2em',
-        tightest: '-.04em',
+        tighter: '-0.04em',
+        tight: '-0.02em',
+        widest: '0.18em',
       },
-      backgroundImage: {
-        'grid-pattern-light': "radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px)",
-        'grid-pattern-dark': "radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px)",
-      }
     },
   },
   plugins: [],

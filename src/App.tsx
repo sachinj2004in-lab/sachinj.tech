@@ -1,67 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from './context/ThemeContext';
-import { useLenisSmoothScroll } from './hooks/useLenisSmoothScroll';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Projects } from './components/Projects';
-import { Timeline } from './components/Timeline';
-import { Skills } from './components/Skills';
-import { Highlights } from './components/Highlights';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
+import React, { useEffect } from 'react';
+import { director } from './engine/director';
+import { Stage } from './components/Stage';
+import { Chrome } from './components/Chrome';
+import { Hero } from './scenes/Hero';
+import { About } from './scenes/About';
+import { Work } from './scenes/Work';
+import { Journey } from './scenes/Journey';
+import { Skills } from './scenes/Skills';
+import { Awards } from './scenes/Awards';
+import { Contact } from './scenes/Contact';
 
-const MainLayout: React.FC = () => {
-  useLenisSmoothScroll();
-  const [activeSection, setActiveSection] = useState<string>('hero');
-
+export const App: React.FC = () => {
   useEffect(() => {
-    const sections = ['hero', 'about', 'projects', 'journey', 'skills', 'tracks', 'contact'];
+    director.init();
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionId = sections[i];
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const top = element.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
+    return () => {
+      director.destroy();
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 dark:bg-[#09090B] dark:text-neutral-100 transition-colors duration-300 antialiased selection:bg-[#FF1F1F] selection:text-white">
-      <Navbar activeSection={activeSection} />
-      <main>
+    <div className="relative w-full bg-paper text-ink min-h-screen selection:bg-[#ff1f1f] selection:text-white">
+      {/* Global UI: Preloader, Navigation HUD, Scroll Rail, Custom Cursor (z50 / z99) */}
+      <Chrome />
+
+      {/* Canvas 2D Character Stage & Blade Transition (z10) */}
+      <Stage />
+
+      {/* 7 Coordinated Scenes with Sticky Viewports (z30) */}
+      <main className="relative z-30">
         <Hero />
         <About />
-        <Projects />
-        <Timeline />
+        <Work />
+        <Journey />
         <Skills />
-        <Highlights />
+        <Awards />
         <Contact />
       </main>
-      <Footer />
     </div>
-  );
-};
-
-export const App: React.FC = () => {
-  return (
-    <ThemeProvider>
-      <MainLayout />
-    </ThemeProvider>
   );
 };
 
