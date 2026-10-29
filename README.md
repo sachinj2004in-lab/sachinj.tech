@@ -28,7 +28,7 @@ A bespoke, production-ready cinematic developer portfolio engineered for **Sachi
   4. *IoT Air-Quality Monitoring System* (ESP32, MQ-135 gas sensor, 16x2 I2C LCD, ThingSpeak cloud)
 - **Verified Contacts**:
   - Email: [sachinreva2004@gmail.com](mailto:sachinreva2004@gmail.com)
-  - GitHub: [github.com/sachin2004-roxx](https://github.com/sachin2004-roxx)
+  - GitHub: [github.com/sachinj2004in-lab](https://github.com/sachinj2004in-lab)
   - LinkedIn: [linkedin.com/in/sachin-j-b18011276](https://www.linkedin.com/in/sachin-j-b18011276)
   - WhatsApp: +91 81488 43278 (Functional encoded contact form directly opens WhatsApp)
 
