@@ -8,9 +8,37 @@
   --text-primary: #0A0A0A;
 }
 
-.dark {
+html {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html:not(.dark), body:not(.dark), #root:not(.dark) {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+}
+
+html.dark {
   --bg-primary: #09090B;
   --text-primary: #F4F4F5;
+  background-color: #09090B !important;
+  color: #F4F4F5 !important;
+}
+
+html.dark body {
+  background-color: #09090B !important;
+  color: #F4F4F5 !important;
+}
+
+html.dark #root {
+  background-color: #09090B !important;
 }
 
 /* Custom Scrollbar */
@@ -28,12 +56,23 @@
   background: #FF1F1F;
 }
 
+/* Zero Black Screen Rules for Videos */
+video {
+  background-color: transparent !important;
+  background: transparent !important;
+  outline: none !important;
+}
+
+video::-webkit-media-controls {
+  display: none !important;
+}
+
 /* Character Blend: blends studio background into clean white canvas */
 .character-blend {
   mix-blend-mode: multiply;
 }
 .dark .character-blend {
-  mix-blend-mode: screen;
+  mix-blend-mode: normal;
 }
 
 /* Continuous Marquee Ticker */
@@ -81,4 +120,68 @@ html.lenis, html.lenis body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Premium Animated Glass Pill Button matching reference image (Idle, Hover, Click) */
+.glass-pill-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.35) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 2px rgba(255, 255, 255, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  user-select: none;
+}
+
+.dark .glass-pill-button {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.15) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1.5px 2px rgba(255, 255, 255, 0.2),
+    0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.glass-pill-button:hover {
+  border-color: rgba(56, 189, 248, 0.9);
+  box-shadow: 
+    0 0 20px rgba(56, 189, 248, 0.65),
+    inset 0 0 14px rgba(56, 189, 248, 0.4),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(56, 189, 248, 0.5);
+  transform: translateY(-0.5px);
+}
+
+.glass-pill-button:active {
+  transform: scale(0.96);
+  border-color: rgba(186, 230, 253, 1);
+  box-shadow: 
+    0 0 35px rgba(56, 189, 248, 0.95),
+    0 0 65px rgba(186, 230, 253, 0.75),
+    inset 0 0 22px rgba(255, 255, 255, 0.95);
+}
+
+.glass-pill-button .glass-shimmer {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.glass-pill-button:hover .glass-shimmer {
+  left: 160%;
+  transition: left 0.85s ease-in-out;
 }

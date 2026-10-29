@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export interface SceneConfig {
-  id: 'hero' | 'about' | 'work' | 'journey' | 'skills' | 'highlights' | 'contact';
+  id: 'hero' | 'about' | 'projects' | 'journey' | 'resume' | 'contact';
   index: number;
   navLabel: string;
   heightVh: number;
@@ -16,13 +16,12 @@ export interface SceneConfig {
 }
 
 export const SCENES: SceneConfig[] = [
-  { id: 'hero', index: 0, navLabel: 'Home', heightVh: 230, startFrame: 0, endFrame: 22, charX: 72, charScale: 0.95 },
-  { id: 'about', index: 1, navLabel: 'About', heightVh: 280, startFrame: 23, endFrame: 55, charX: 28, charScale: 0.92 },
-  { id: 'work', index: 2, navLabel: 'Work', heightVh: 460, startFrame: 56, endFrame: 90, charX: 74, charScale: 0.90 },
-  { id: 'journey', index: 3, navLabel: 'Journey', heightVh: 240, startFrame: 91, endFrame: 102, charX: 26, charScale: 0.92 },
-  { id: 'skills', index: 4, navLabel: 'Toolkit', heightVh: 280, startFrame: 103, endFrame: 108, charX: 50, charScale: 0.95 },
-  { id: 'highlights', index: 5, navLabel: 'Tracks', heightVh: 320, startFrame: 109, endFrame: 114, charX: 72, charScale: 0.90 },
-  { id: 'contact', index: 6, navLabel: 'Contact', heightVh: 240, startFrame: 115, endFrame: 119, charX: 50, charScale: 1.00 },
+  { id: 'hero', index: 0, navLabel: 'Home', heightVh: 100, startFrame: 0, endFrame: 22, charX: 72, charScale: 0.95 },
+  { id: 'about', index: 1, navLabel: 'About', heightVh: 200, startFrame: 23, endFrame: 55, charX: 28, charScale: 0.92 },
+  { id: 'projects', index: 2, navLabel: 'Projects', heightVh: 220, startFrame: 56, endFrame: 90, charX: 74, charScale: 0.90 },
+  { id: 'journey', index: 3, navLabel: 'Journey', heightVh: 180, startFrame: 91, endFrame: 102, charX: 26, charScale: 0.92 },
+  { id: 'resume', index: 4, navLabel: 'Resume', heightVh: 180, startFrame: 103, endFrame: 114, charX: 72, charScale: 0.90 },
+  { id: 'contact', index: 5, navLabel: 'Contact', heightVh: 150, startFrame: 115, endFrame: 119, charX: 50, charScale: 1.00 },
 ];
 
 export interface ScrollState {
@@ -70,16 +69,26 @@ class ScrollDirector {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.lenis = new Lenis({
-      lerp: prefersReducedMotion ? 1 : 0.075,
+      lerp: prefersReducedMotion ? 1 : 0.1,
       smoothWheel: !prefersReducedMotion,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.4,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      syncTouch: false,
     });
 
     this.lenis.on('scroll', (e: { scroll: number }) => {
       this.handleScroll(e.scroll);
       ScrollTrigger.update();
     });
+
+    // Native passive scroll listener ensures 120Hz responsiveness on mobile
+    window.addEventListener(
+      'scroll',
+      () => {
+        this.handleScroll(window.scrollY);
+      },
+      { passive: true }
+    );
 
     this.tickerCallback = (time: number) => {
       this.lenis?.raf(time * 1000);
@@ -90,6 +99,7 @@ class ScrollDirector {
 
     window.addEventListener('resize', this.onResize);
     this.updateDimensions();
+    this.handleScroll(window.scrollY || 0);
   }
 
   public subscribe(callback: ScrollSubscriber): () => void {
@@ -116,7 +126,20 @@ class ScrollDirector {
     this.lenis.scrollTo(el, { duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) });
   }
 
+  private lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+  private lastHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
+
   private onResize = () => {
+    if (typeof window !== 'undefined') {
+      // Ignore mobile address bar height-only changes (< 140px) to prevent layout shifts & reload-like jumps
+      const widthChanged = window.innerWidth !== this.lastWidth;
+      const heightDelta = Math.abs(window.innerHeight - this.lastHeight);
+      if (!widthChanged && heightDelta < 140) {
+        return;
+      }
+      this.lastWidth = window.innerWidth;
+      this.lastHeight = window.innerHeight;
+    }
     this.updateDimensions();
     this.handleScroll(window.scrollY);
   };

@@ -19,7 +19,7 @@
       "scale": 0.92
     },
     {
-      "name": "work",
+      "name": "projects",
       "startFrame": 56,
       "endFrame": 90,
       "charX": 74,
@@ -33,15 +33,8 @@
       "scale": 0.92
     },
     {
-      "name": "skills",
+      "name": "resume",
       "startFrame": 103,
-      "endFrame": 108,
-      "charX": 50,
-      "scale": 0.95
-    },
-    {
-      "name": "highlights",
-      "startFrame": 109,
       "endFrame": 114,
       "charX": 72,
       "scale": 0.90

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="carBg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#181B26" />
+      <stop offset="55%" stop-color="#0A0D15" />
+      <stop offset="100%" stop-color="#030408" />
+    </radialGradient>
+
+    <filter id="carGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+
+    <linearGradient id="chassisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <linearGradient id="tireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1F2937" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <linearGradient id="headlightBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF1F1F" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FF1F1F" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#carBg)" />
+
+  <!-- Studio Floor Grid & Tire Shadow -->
+  <g opacity="0.12" stroke="#38BDF8" stroke-width="1">
+    <line x1="960" y1="500" x2="0" y2="1080" /><line x1="960" y1="500" x2="480" y2="1080" />
+    <line x1="960" y1="500" x2="1440" y2="1080" /><line x1="960" y1="500" x2="1920" y2="1080" />
+    <ellipse cx="960" cy="850" rx="750" ry="150" fill="none" stroke-dasharray="8 8" />
+  </g>
+
+  <!-- Ambient Red Underglow -->
+  <ellipse cx="960" cy="740" rx="550" ry="110" fill="#FF1F1F" opacity="0.2" filter="url(#carGlow)" />
+
+  <!-- ============================================ -->
+  <!-- 1. 4WD VEHICULAR ROBOT (TOP / 3/4 ISOMETRIC) -->
+  <!-- ============================================ -->
+  <g transform="translate(960, 520)">
+    <!-- 4 Heavy Knobby All-Terrain Rubber Tires -->
+    <!-- Front Left Tire -->
+    <g transform="translate(-320, -180)">
+      <rect x="-45" y="-90" width="90" height="180" rx="20" fill="url(#tireGrad)" stroke="#475569" stroke-width="3" />
+      <!-- Knobby Treads -->
+      <line x1="-45" y1="-50" x2="45" y2="-50" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="0" x2="45" y2="0" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="50" x2="45" y2="50" stroke="#374151" stroke-width="4" />
+      <!-- Rim -->
+      <circle cx="0" cy="0" r="26" fill="#1E293B" stroke="#FF1F1F" stroke-width="2" />
+    </g>
+
+    <!-- Front Right Tire -->
+    <g transform="translate(320, -180)">
+      <rect x="-45" y="-90" width="90" height="180" rx="20" fill="url(#tireGrad)" stroke="#475569" stroke-width="3" />
+      <line x1="-45" y1="-50" x2="45" y2="-50" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="0" x2="45" y2="0" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="50" x2="45" y2="50" stroke="#374151" stroke-width="4" />
+      <circle cx="0" cy="0" r="26" fill="#1E293B" stroke="#FF1F1F" stroke-width="2" />
+    </g>
+
+    <!-- Rear Left Tire -->
+    <g transform="translate(-320, 180)">
+      <rect x="-45" y="-90" width="90" height="180" rx="20" fill="url(#tireGrad)" stroke="#475569" stroke-width="3" />
+      <line x1="-45" y1="-50" x2="45" y2="-50" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="0" x2="45" y2="0" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="50" x2="45" y2="50" stroke="#374151" stroke-width="4" />
+      <circle cx="0" cy="0" r="26" fill="#1E293B" stroke="#FF1F1F" stroke-width="2" />
+    </g>
+
+    <!-- Rear Right Tire -->
+    <g transform="translate(320, 180)">
+      <rect x="-45" y="-90" width="90" height="180" rx="20" fill="url(#tireGrad)" stroke="#475569" stroke-width="3" />
+      <line x1="-45" y1="-50" x2="45" y2="-50" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="0" x2="45" y2="0" stroke="#374151" stroke-width="4" />
+      <line x1="-45" y1="50" x2="45" y2="50" stroke="#374151" stroke-width="4" />
+      <circle cx="0" cy="0" r="26" fill="#1E293B" stroke="#FF1F1F" stroke-width="2" />
+    </g>
+
+    <!-- Main Chassis Dual-Layer Plate -->
+    <rect x="-260" y="-220" width="520" height="440" rx="32" fill="url(#chassisGrad)" stroke="#475569" stroke-width="3" filter="url(#carGlow)" />
+    <!-- Carbon Fiber Inner Cutout -->
+    <rect x="-240" y="-200" width="480" height="400" rx="24" fill="#0B0F19" stroke="#FF1F1F" stroke-width="2" />
+
+    <!-- Headlight Beams (Shooting Left & Right) -->
+    <polygon points="-160,-220 -280,-380 -80,-380" fill="url(#headlightBeam)" transform="rotate(270 -160 -220)" filter="url(#carGlow)" />
+    <polygon points="160,-220 80,-380 280,-380" fill="url(#headlightBeam)" transform="rotate(90 160 -220)" filter="url(#carGlow)" />
+    <!-- Twin Front LED Headlights -->
+    <circle cx="-160" cy="-205" r="14" fill="#FF1F1F" filter="url(#carGlow)" />
+    <circle cx="-160" cy="-205" r="6" fill="#FFFFFF" />
+    <circle cx="160" cy="-205" r="14" fill="#FF1F1F" filter="url(#carGlow)" />
+    <circle cx="160" cy="-205" r="6" fill="#FFFFFF" />
+
+    <!-- L298N Dual H-Bridge Motor Driver Module (Upper Center) -->
+    <g transform="translate(0, -90)">
+      <rect x="-140" y="-80" width="280" height="150" rx="10" fill="#991B1B" stroke="#DC2626" stroke-width="2" />
+      <!-- Aluminum Extruded Heat Sink with Vertical Fins -->
+      <rect x="-80" y="-60" width="160" height="70" fill="#1E293B" stroke="#475569" stroke-width="1.5" />
+      <!-- 7 Heat Sink Fins -->
+      <line x1="-60" y1="-60" x2="-60" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="-40" y1="-60" x2="-40" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="-20" y1="-60" x2="-20" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="0" y1="-60" x2="0" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="20" y1="-60" x2="20" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="40" y1="-60" x2="40" y2="10" stroke="#64748B" stroke-width="3" />
+      <line x1="60" y1="-60" x2="60" y2="10" stroke="#64748B" stroke-width="3" />
+      
+      <text x="0" y="35" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">L298N DUAL H-BRIDGE</text>
+      <text x="0" y="55" text-anchor="middle" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="9">PWM MOTOR DRIVE // 2A PEAK</text>
+    </g>
+
+    <!-- ESP32 Wi-Fi Teleoperation Core (Lower Center) -->
+    <g transform="translate(0, 100)">
+      <rect x="-120" y="-70" width="240" height="140" rx="10" fill="#064E3B" stroke="#10B981" stroke-width="2" />
+      
+      <!-- ESP32 RF Shielding Can -->
+      <rect x="-70" y="-50" width="140" height="85" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="1.5" />
+      <text x="0" y="-20" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">ESP32 CORE</text>
+      <text x="0" y="2" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10">ASYNCH WEBSOCKETS</text>
+      <text x="0" y="22" text-anchor="middle" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="8">802.11 b/g/n ACCESS POINT</text>
+
+      <!-- External Wi-Fi Antenna SMA Connector -->
+      <line x1="0" y1="50" x2="0" y2="85" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" />
+      <circle cx="0" cy="85" r="5" fill="#FF1F1F" filter="url(#carGlow)" />
+    </g>
+  </g>
+
+  <!-- Left: WebSockets Telemetry HUD -->
+  <g transform="translate(140, 300)">
+    <rect x="0" y="0" width="360" height="240" rx="18" fill="#0A0E17" stroke="#38BDF8" stroke-width="2" opacity="0.95" />
+    <circle cx="28" cy="30" r="6" fill="#10B981" />
+    <text x="45" y="34" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">WEBSOCKET TELEMETRY</text>
+
+    <text x="24" y="70" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">LATENCY: 12ms // LOW LAG</text>
+    <text x="24" y="95" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11">PACKET LOSS: 0.0%</text>
+    <text x="24" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">STEERING: DIFFERENTIAL PWM</text>
+    <text x="24" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">CURRENT SPEED: 1.8 m/s</text>
+
+    <rect x="24" y="160" width="310" height="55" rx="8" fill="#161B22" stroke="#21262D" />
+    <text x="36" y="185" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">DIRECTION: FORWARD-LEFT</text>
+    <text x="36" y="202" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">LEFT PWM: 210 / 255 · RIGHT PWM: 255 / 255</text>
+  </g>
+
+  <!-- Right: Battery & Motor Health -->
+  <g transform="translate(1420, 300)">
+    <rect x="0" y="0" width="360" height="240" rx="18" fill="#0A0E17" stroke="#FF1F1F" stroke-width="2" opacity="0.95" filter="url(#carGlow)" />
+    <circle cx="28" cy="30" r="6" fill="#FF1F1F" />
+    <text x="45" y="34" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">POWERTRAIN METRICS</text>
+
+    <text x="24" y="70" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">2S Li-Ion: 7.84V (88%)</text>
+    <text x="24" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Current Draw: 1.45A Continuous</text>
+    <text x="24" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Motor Driver Temp: 42°C [SAFE]</text>
+    <text x="24" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Failsafe: Auto-Stop on Disconnect</text>
+
+    <rect x="24" y="160" width="310" height="55" rx="8" fill="#161B22" stroke="#21262D" />
+    <text x="36" y="185" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">BROWSER GAMEPAD API</text>
+    <text x="36" y="202" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">ANALOG JOYSTICK &amp; TOUCH BUTTON MAP</text>
+  </g>
+
+  <!-- Top Watermark -->
+  <g transform="translate(80, 80)">
+    <text x="0" y="0" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="4">SACHIN J // PROJECT 11</text>
+    <text x="0" y="32" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="36" letter-spacing="2">ESP32 WI-FI RC CAR</text>
+    <text x="0" y="58" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">4WD ALL-TERRAIN ROBOT · L298N DUAL H-BRIDGE · ASYNCHRONOUS WEBSOCKETS CONTROLLER</text>
+  </g>
+</svg>

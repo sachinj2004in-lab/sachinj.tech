@@ -54,7 +54,7 @@ export const Highlights: React.FC = () => {
             <div className="text-3xl sm:text-5xl font-display font-black">
               4
             </div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-white/80">
+            <div className="font-mono text-xs uppercase tracking-wider text-white/80">
               PROTOTYPES IN PROGRESS
             </div>
           </div>
@@ -63,7 +63,7 @@ export const Highlights: React.FC = () => {
             <div className="text-3xl sm:text-5xl font-display font-black text-[#FF1F1F]">
               8+
             </div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+            <div className="font-mono text-xs uppercase tracking-wider text-neutral-400">
               HARDWARE & MCU SKILLS
             </div>
           </div>
@@ -72,7 +72,7 @@ export const Highlights: React.FC = () => {
             <div className="text-3xl sm:text-5xl font-display font-black">
               100%
             </div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-white/80">
+            <div className="font-mono text-xs uppercase tracking-wider text-white/80">
               VERIFIED ARCHITECTURE
             </div>
           </div>
@@ -81,7 +81,7 @@ export const Highlights: React.FC = () => {
             <div className="text-3xl sm:text-5xl font-display font-black text-[#FF1F1F]">
               2026
             </div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+            <div className="font-mono text-xs uppercase tracking-wider text-neutral-400">
               B.E. ECE GRADUATION
             </div>
           </div>

@@ -3,68 +3,128 @@ import { director, SCENES } from '../engine/director';
 import { useScrollState } from '../engine/hooks';
 import { frameLoader } from '../engine/frames';
 import gsap from 'gsap';
+import { Menu, X } from 'lucide-react';
 
 export const Chrome: React.FC = () => {
   const scrollState = useScrollState();
   const [preloaderComplete, setPreloaderComplete] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark');
+    document.documentElement.setAttribute('data-theme', 'light');
+  }, []);
 
   const topPanelRef = useRef<HTMLDivElement>(null);
   const bottomPanelRef = useRef<HTMLDivElement>(null);
-  const counterRef = useRef<HTMLDivElement>(null);
+  const welcomeTextRef = useRef<HTMLDivElement>(null);
+  const nameTextRef = useRef<HTMLDivElement>(null);
+  const subTextRef = useRef<HTMLDivElement>(null);
 
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const [cursorText, setCursorText] = useState('');
 
-  // Initial Preloader sequence
+  // Initial Preloader sequence: WELCOME → SACHIN J
   useEffect(() => {
     director.stop();
 
-    const unsubscribe = frameLoader.onProgress((prog) => {
-      setLoadingProgress(prog);
-      if (prog >= 100) {
-        // Animate preloader panels apart with Expo easing
-        const tl = gsap.timeline({
-          delay: 0.3,
-          onComplete: () => {
-            setPreloaderComplete(true);
-            director.start();
-          },
-        });
-
-        tl.to(counterRef.current, {
-          opacity: 0,
-          scale: 0.9,
-          duration: 0.4,
-          ease: 'power2.in',
-        });
-
-        tl.to(
-          topPanelRef.current,
-          {
-            yPercent: -100,
-            duration: 1.1,
-            ease: 'expo.inOut',
-          },
-          '-=0.2'
-        );
-
-        tl.to(
-          bottomPanelRef.current,
-          {
-            yPercent: 100,
-            duration: 1.1,
-            ease: 'expo.inOut',
-          },
-          '<'
-        );
-      }
+    // Prepare masked starting positions
+    gsap.set([welcomeTextRef.current, nameTextRef.current], {
+      yPercent: 120,
+      opacity: 0,
+    });
+    gsap.set(subTextRef.current, {
+      y: 20,
+      opacity: 0,
     });
 
+    const tl = gsap.timeline({
+      delay: 0.15,
+      onComplete: () => {
+        setPreloaderComplete(true);
+        director.start();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('heroStartPlay'));
+        }
+      },
+    });
+
+    // 1. Reveal WELCOME with smooth masked upward animation
+    tl.to(welcomeTextRef.current, {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.75,
+      ease: 'power3.out',
+    });
+
+    // 2. Reveal SACHIN J immediately afterward using subtle stagger
+    tl.to(
+      nameTextRef.current,
+      {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.75,
+        ease: 'power3.out',
+      },
+      '-=0.45'
+    );
+
+    // 3. Reveal technical subtitle
+    tl.to(
+      subTextRef.current,
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.45,
+        ease: 'power2.out',
+      },
+      '-=0.3'
+    );
+
+    // 4. Subtle dwell to appreciate typography
+    tl.to({}, { duration: 0.45 });
+
+    // 5. Elevate text upward smoothly
+    tl.to(
+      [welcomeTextRef.current, nameTextRef.current, subTextRef.current],
+      {
+        yPercent: -40,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'power2.in',
+        stagger: 0.05,
+      }
+    );
+
+    // 6. Split red panels apart with Expo easing
+    tl.to(
+      topPanelRef.current,
+      {
+        yPercent: -100,
+        duration: 1.0,
+        ease: 'expo.inOut',
+      },
+      '-=0.15'
+    );
+
+    tl.to(
+      bottomPanelRef.current,
+      {
+        yPercent: 100,
+        duration: 1.0,
+        ease: 'expo.inOut',
+      },
+      '<'
+    );
+
+    // Start loading frames in background without blocking the intro
     frameLoader.init();
 
-    return () => unsubscribe();
+    return () => {
+      tl.kill();
+    };
   }, []);
 
   // Custom Cursor logic (desktop only)
@@ -114,42 +174,63 @@ export const Chrome: React.FC = () => {
   }, []);
 
   const isContact = scrollState.activeScene.id === 'contact';
+  const navScenes = SCENES;
 
   return (
     <>
-      {/* 1. Full-screen Preloader with Two Red Panels */}
+      {/* 1. Full-screen Preloader with Animated WELCOME -> SACHIN J Sequence */}
       {!preloaderComplete && (
         <div className="fixed inset-0 z-[100] pointer-events-none select-none flex flex-col justify-between overflow-hidden">
           {/* Top Red Panel */}
           <div
             ref={topPanelRef}
-            className="w-full h-1/2 bg-[#ff1f1f] flex items-end justify-center pb-8 shadow-2xl"
+            className="w-full h-1/2 bg-[#ff1f1f] flex items-end justify-center pb-8 shadow-2xl relative"
           >
-            <div className="font-mono text-xs text-white/80 uppercase tracking-widest">
+            <div className="font-mono text-xs text-white/75 uppercase tracking-widest">
               SACHIN J // PORTFOLIO INITIALIZATION
             </div>
           </div>
 
-          {/* Center Counter */}
-          <div
-            ref={counterRef}
-            className="absolute inset-0 flex flex-col items-center justify-center text-center z-10"
-          >
-            <div className="font-display text-8xl sm:text-9xl font-black text-white leading-none">
-              {String(loadingProgress).padStart(3, '0')}
+          {/* Center Masked Text Reveal */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
+            {/* WELCOME in Anton */}
+            <div className="overflow-hidden py-1 sm:py-2">
+              <div
+                ref={welcomeTextRef}
+                className="font-display text-7xl sm:text-9xl md:text-[11vw] font-black text-white leading-[0.88] tracking-tight uppercase will-change-transform"
+              >
+                WELCOME
+              </div>
             </div>
-            <div className="font-mono text-xs text-white/90 tracking-widest uppercase mt-4">
-              LOADING ARCHITECTURE & FRAMES
+
+            {/* SACHIN J in Anton */}
+            <div className="overflow-hidden py-1 sm:py-2 mt-1 sm:mt-3">
+              <div
+                ref={nameTextRef}
+                className="font-display text-5xl sm:text-7xl md:text-[8vw] font-black text-white leading-[0.88] tracking-tight uppercase will-change-transform"
+              >
+                SACHIN J
+              </div>
+            </div>
+
+            {/* Subtitle */}
+            <div className="overflow-hidden mt-4">
+              <div
+                ref={subTextRef}
+                className="font-mono text-xs sm:text-sm text-white/85 tracking-widest uppercase will-change-transform"
+              >
+                EMBEDDED SYSTEMS ARCHITECTURE · 2026
+              </div>
             </div>
           </div>
 
           {/* Bottom Red Panel */}
           <div
             ref={bottomPanelRef}
-            className="w-full h-1/2 bg-[#ff1f1f] flex items-start justify-center pt-8 shadow-2xl"
+            className="w-full h-1/2 bg-[#ff1f1f] flex items-start justify-center pt-8 shadow-2xl relative"
           >
-            <div className="font-mono text-xs text-white/80 uppercase tracking-widest">
-              EMBEDDED SYSTEMS ARCHITECTURE · 2026
+            <div className="font-mono text-xs text-white/75 uppercase tracking-widest">
+              ENGINEERING PORTFOLIO · COIMBATORE, INDIA
             </div>
           </div>
         </div>
@@ -158,7 +239,7 @@ export const Chrome: React.FC = () => {
       {/* 2. Navigation HUD (z-50) */}
       <header
         className={`fixed top-0 left-0 w-full z-50 py-5 transition-colors duration-300 ${
-          isContact ? 'text-white' : 'text-ink'
+          isContact ? 'text-white' : 'text-ink dark:text-white'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -168,40 +249,100 @@ export const Chrome: React.FC = () => {
             className="flex items-center gap-1.5 focus:outline-none text-left"
             aria-label="Sachin J - Home"
           >
-            <span className="font-display text-3xl font-black tracking-tight uppercase">
+            <span className={`font-display text-3xl font-black tracking-tight uppercase transition-colors ${
+              isContact ? 'text-white' : 'text-ink dark:text-white'
+            }`}>
               SACHIN
             </span>
-            <span className="w-2 h-2 rounded-full bg-[#ff1f1f] mt-1" />
+            <span className={`w-2 h-2 rounded-full mt-1 transition-colors ${
+              isContact ? 'bg-white' : 'bg-[#ff1f1f]'
+            }`} />
           </button>
 
-          {/* Pill Navigation Menu */}
-          <nav
-            className={`hidden md:flex items-center gap-1 p-1.5 rounded-full backdrop-blur-md border transition-colors ${
-              isContact
-                ? 'bg-black/30 border-white/20'
-                : 'bg-white/85 border-black/[0.08] shadow-sm'
-            }`}
-          >
-            {SCENES.map((scene) => {
-              const isActive = scrollState.activeScene.id === scene.id;
-              return (
-                <button
-                  key={scene.id}
-                  onClick={() => director.scrollToScene(scene.id)}
-                  className={`px-4 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 ${
-                    isActive
-                      ? 'bg-[#ff1f1f] text-white font-bold shadow-md shadow-red-500/20'
-                      : isContact
-                      ? 'text-white/70 hover:text-white'
-                      : 'text-neutral-600 hover:text-black hover:bg-neutral-100/60'
-                  }`}
-                >
-                  {scene.navLabel}
-                </button>
-              );
-            })}
-          </nav>
+          {/* Desktop Right Controls: Clean Nav Menu matching reference screenshot (1024px+) */}
+          <div className="hidden lg:flex items-center gap-2.5">
+            <nav
+              className={`flex items-center gap-1 p-1.5 rounded-full backdrop-blur-md border transition-colors ${
+                isContact
+                  ? 'bg-black/30 border-white/20'
+                  : 'bg-white/90 dark:bg-neutral-900/90 border-black/[0.08] dark:border-white/10 shadow-sm'
+              }`}
+            >
+              {navScenes.map((scene) => {
+                const isActive = scrollState.activeScene.id === scene.id;
+                return (
+                  <button
+                    key={scene.id}
+                    onClick={() => director.scrollToScene(scene.id)}
+                    className={`px-3.5 py-1.5 text-xs rounded-full font-mono uppercase tracking-wider transition-all duration-200 ${
+                      isActive
+                        ? 'bg-[#ff1f1f] text-white font-bold shadow-md shadow-red-500/20'
+                        : isContact
+                        ? 'text-white/70 hover:text-white'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white hover:bg-neutral-100/60 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    {scene.navLabel}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Mobile & Tablet Right Controls: Menu Button (< 1024px) */}
+          <div className="flex lg:hidden items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`min-h-[44px] min-w-[44px] p-2.5 rounded-full border flex items-center justify-center transition-all ${
+                isContact
+                  ? 'bg-black/40 border-white/20 text-white'
+                  : 'bg-white/90 dark:bg-neutral-800 border-black/10 dark:border-white/10 text-ink dark:text-white shadow-sm'
+              }`}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile & Tablet Navigation Drawer & Backdrop */}
+        {mobileMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden animate-fadeIn"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <div className="fixed inset-x-4 top-20 z-50 lg:hidden p-4 sm:p-6 rounded-3xl bg-neutral-900/95 backdrop-blur-2xl border border-white/20 shadow-2xl text-white space-y-3 max-w-lg mx-auto animate-fadeIn">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10 font-mono text-[10px] text-white/60 uppercase tracking-widest">
+              <span>PORTFOLIO SECTIONS</span>
+              <span>SACHIN J · 2026</span>
+            </div>
+            <div className="flex flex-col gap-1.5 pt-1">
+              {navScenes.map((scene, idx) => {
+                const isActive = scrollState.activeScene.id === scene.id;
+                return (
+                  <button
+                    key={scene.id}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      director.scrollToScene(scene.id);
+                    }}
+                    className={`w-full min-h-[44px] text-left px-4 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider flex items-center justify-between transition-all ${
+                      isActive
+                        ? 'bg-[#ff1f1f] text-white font-bold'
+                        : 'hover:bg-white/10 text-white/80'
+                    }`}
+                  >
+                    <span>{scene.navLabel}</span>
+                    <span className="text-[10px] opacity-60">0{idx + 1}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          </>
+        )}
       </header>
 
       {/* 3. Bottom-Right Scroll Progress Rail (z-50) */}

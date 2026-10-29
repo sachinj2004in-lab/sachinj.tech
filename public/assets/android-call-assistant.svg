@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="phoneBg" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#151A26" />
+      <stop offset="60%" stop-color="#0A0E17" />
+      <stop offset="100%" stop-color="#030508" />
+    </radialGradient>
+
+    <filter id="phoneGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+
+    <linearGradient id="phoneBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <linearGradient id="screenGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#020408" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#phoneBg)" />
+
+  <!-- Studio Floor Grid -->
+  <g opacity="0.1" stroke="#38BDF8" stroke-width="1">
+    <line x1="960" y1="500" x2="0" y2="1080" /><line x1="960" y1="500" x2="480" y2="1080" />
+    <line x1="960" y1="500" x2="1440" y2="1080" /><line x1="960" y1="500" x2="1920" y2="1080" />
+  </g>
+
+  <!-- Ambient Red Aura -->
+  <circle cx="960" cy="540" r="320" fill="#FF1F1F" opacity="0.12" filter="url(#phoneGlow)" />
+
+  <!-- ============================================ -->
+  <!-- 1. CENTER: FLAGSHIP ANDROID PHONE RUNNING APP-->
+  <!-- ============================================ -->
+  <g transform="translate(960, 520)">
+    <!-- Phone Outer Chassis & Metallic Rim -->
+    <rect x="-240" y="-420" width="480" height="840" rx="44" fill="url(#phoneBody)" stroke="#64748B" stroke-width="3" filter="url(#phoneGlow)" />
+    
+    <!-- Phone AMOLED Screen Panel -->
+    <rect x="-225" y="-405" width="450" height="810" rx="36" fill="url(#screenGlass)" />
+
+    <!-- Punch-Hole Selfie Camera -->
+    <circle cx="0" cy="-375" r="9" fill="#000000" stroke="#1E293B" stroke-width="2" />
+    <circle cx="0" cy="-375" r="3" fill="#00F0FF" opacity="0.6" />
+
+    <!-- Android Status Bar -->
+    <text x="-190" y="-370" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12">09:41</text>
+    <g transform="translate(145, -380)" fill="#94A3B8">
+      <path d="M 0,10 L 4,5 L 8,10 Z" />
+      <rect x="15" y="0" width="22" height="12" rx="3" fill="none" stroke="#94A3B8" stroke-width="1.5" />
+      <rect x="17" y="2" width="14" height="8" rx="1.5" fill="#10B981" />
+    </g>
+
+    <!-- App Title Banner: Kotlin Jetpack Compose -->
+    <g transform="translate(0, -320)">
+      <rect x="-180" y="0" width="360" height="42" rx="21" fill="#1E293B" stroke="#38BDF8" stroke-width="1" />
+      <circle cx="-150" cy="21" r="7" fill="#10B981" filter="url(#phoneGlow)" />
+      <text x="0" y="26" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">AI CALL SCREENING ACTIVE</text>
+    </g>
+
+    <!-- Caller ID Card -->
+    <g transform="translate(0, -220)">
+      <circle cx="0" cy="0" r="48" fill="#1E293B" stroke="#FF1F1F" stroke-width="2.5" filter="url(#phoneGlow)" />
+      <text x="0" y="8" text-anchor="middle" fill="#FF1F1F" font-family="'Anton', sans-serif" font-size="28">?</text>
+      
+      <text x="0" y="75" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold">Unknown Caller</text>
+      <text x="0" y="100" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12">+91 98402 11984 · MUMBAI</text>
+      <text x="0" y="122" text-anchor="middle" fill="#A0AEC0" font-family="'JetBrains Mono', monospace" font-size="10">KOTLIN TELEPHONY API HOOK</text>
+    </g>
+
+    <!-- Live Audio Frequency Waveform (Cyan & Red) -->
+    <g transform="translate(0, -40)">
+      <rect x="-195" y="0" width="390" height="90" rx="16" fill="#0A0E1A" stroke="#2D3748" stroke-width="1.5" />
+      <g stroke-linecap="round">
+        <line x1="-160" y1="45" x2="-160" y2="45" stroke="#38BDF8" stroke-width="3" />
+        <line x1="-140" y1="30" x2="-140" y2="60" stroke="#38BDF8" stroke-width="3.5" />
+        <line x1="-120" y1="15" x2="-120" y2="75" stroke="#38BDF8" stroke-width="4" />
+        <line x1="-100" y1="35" x2="-100" y2="55" stroke="#38BDF8" stroke-width="3.5" />
+        <line x1="-80" y1="20" x2="-80" y2="70" stroke="#FF1F1F" stroke-width="4" filter="url(#phoneGlow)" />
+        <line x1="-60" y1="10" x2="-60" y2="80" stroke="#FF1F1F" stroke-width="4.5" filter="url(#phoneGlow)" />
+        <line x1="-40" y1="25" x2="-40" y2="65" stroke="#FF1F1F" stroke-width="4" />
+        <line x1="-20" y1="15" x2="-20" y2="75" stroke="#00F0FF" stroke-width="4" />
+        <line x1="0" y1="5" x2="0" y2="85" stroke="#00F0FF" stroke-width="5" filter="url(#phoneGlow)" />
+        <line x1="20" y1="20" x2="20" y2="70" stroke="#00F0FF" stroke-width="4" />
+        <line x1="40" y1="10" x2="40" y2="80" stroke="#FF1F1F" stroke-width="4.5" filter="url(#phoneGlow)" />
+        <line x1="60" y1="25" x2="60" y2="65" stroke="#FF1F1F" stroke-width="4" />
+        <line x1="80" y1="35" x2="80" y2="55" stroke="#38BDF8" stroke-width="3.5" />
+        <line x1="100" y1="20" x2="100" y2="70" stroke="#38BDF8" stroke-width="4" />
+        <line x1="120" y1="15" x2="120" y2="75" stroke="#38BDF8" stroke-width="4" />
+        <line x1="140" y1="30" x2="140" y2="60" stroke="#38BDF8" stroke-width="3.5" />
+        <line x1="160" y1="45" x2="160" y2="45" stroke="#38BDF8" stroke-width="3" />
+      </g>
+      <text x="0" y="80" text-anchor="middle" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">LIVE EDGE SPEECH-TO-TEXT STREAM</text>
+    </g>
+
+    <!-- Real-time Live Transcription Bubble -->
+    <g transform="translate(0, 80)">
+      <rect x="-195" y="0" width="390" height="120" rx="16" fill="#131B2B" stroke="#00F0FF" stroke-width="1.5" />
+      <circle cx="-170" cy="24" r="5" fill="#00F0FF" />
+      <text x="-155" y="28" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">AI ASSISTANT IS ASKING:</text>
+      <text x="-170" y="58" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="600">"Hello, I am Sachin's assistant. What is the context of your call?"</text>
+      <text x="-170" y="85" fill="#94A3B8" font-family="'Plus Jakarta Sans', sans-serif" font-size="13">Caller: "Calling from Qualcomm regarding the embedded firmware..."</text>
+      <!-- Intent Match Pill -->
+      <rect x="-170" y="96" width="220" height="18" rx="9" fill="#10B981" />
+      <text x="-60" y="109" text-anchor="middle" fill="#000000" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">INTENT: RECRUITMENT [HIGH PRIORITY]</text>
+    </g>
+
+    <!-- Call Action Buttons: Decline / Take Over -->
+    <g transform="translate(0, 240)">
+      <circle cx="-100" cy="50" r="38" fill="#EF4444" filter="url(#phoneGlow)" />
+      <text x="-100" y="56" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="bold">Decline</text>
+
+      <circle cx="100" cy="50" r="38" fill="#10B981" filter="url(#phoneGlow)" />
+      <text x="100" y="56" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="bold">Take Over</text>
+    </g>
+
+    <!-- Braided Red USB-C Cable Leading Off Screen -->
+    <path d="M 0,420 L 0,460 Q 0,520 -180,560 L -600,640" fill="none" stroke="#FF1F1F" stroke-width="7" stroke-linecap="round" filter="url(#phoneGlow)" />
+  </g>
+
+  <!-- Left: Android Studio & Architecture HUD -->
+  <g transform="translate(140, 320)">
+    <rect x="0" y="0" width="360" height="260" rx="18" fill="#0D1117" stroke="#38BDF8" stroke-width="2" opacity="0.95" />
+    <circle cx="28" cy="30" r="6" fill="#10B981" />
+    <text x="45" y="34" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">DEV ARCHITECTURE // SDK</text>
+
+    <text x="24" y="70" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">Android Studio Ladybug</text>
+    <text x="24" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Language: Kotlin 2.0</text>
+    <text x="24" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">UI: Jetpack Compose Material 3</text>
+    <text x="24" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Speech: Android SpeechRecognizer</text>
+    <text x="24" y="155" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Telephony: InCallService API</text>
+
+    <rect x="24" y="180" width="310" height="50" rx="8" fill="#161B22" stroke="#21262D" />
+    <text x="36" y="202" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">UART BRIDGE READY</text>
+    <text x="36" y="218" fill="#22C55E" font-family="'JetBrains Mono', monospace" font-size="9">BLUETOOTH LOW ENERGY GATT CONNECTED</text>
+  </g>
+
+  <!-- Right: Real-time Feature Metrics -->
+  <g transform="translate(1420, 320)">
+    <rect x="0" y="0" width="360" height="260" rx="18" fill="#0D1117" stroke="#FF1F1F" stroke-width="2" opacity="0.95" filter="url(#phoneGlow)" />
+    <circle cx="28" cy="30" r="6" fill="#FF1F1F" />
+    <text x="45" y="34" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">PERFORMANCE BENCHMARKS</text>
+
+    <text x="24" y="70" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">Edge Latency: &lt; 28 ms</text>
+    <text x="24" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">STT Word Error Rate: 4.2%</text>
+    <text x="24" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Spam Screening Accuracy: 99.1%</text>
+    <text x="24" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">Battery Overhead: &lt; 1.8% / day</text>
+
+    <rect x="24" y="180" width="310" height="50" rx="8" fill="#161B22" stroke="#21262D" />
+    <text x="36" y="202" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">PRIVACY ZERO-CLOUD OPTION</text>
+    <text x="36" y="218" fill="#A0AEC0" font-family="'JetBrains Mono', monospace" font-size="9">ON-DEVICE NPU SPEECH INFERENCE</text>
+  </g>
+
+  <!-- Top Watermark -->
+  <g transform="translate(80, 80)">
+    <text x="0" y="0" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="4">SACHIN J // PROJECT 07</text>
+    <text x="0" y="32" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="36" letter-spacing="2">ANDROID CALL ASSISTANT</text>
+    <text x="0" y="58" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">NATIVE KOTLIN &amp; JETPACK COMPOSE · INCALLSERVICE · EDGE VOICE AI TRANSCRIPTION</text>
+  </g>
+</svg>

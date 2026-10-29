@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="jarvisBg" cx="55%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#121824" />
+      <stop offset="45%" stop-color="#0a0d14" />
+      <stop offset="100%" stop-color="#040508" />
+    </radialGradient>
+
+    <!-- Holographic Glow Filters -->
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur1" />
+      <feGaussianBlur stdDeviation="24" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="redGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="coreAura" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+
+    <!-- Metallic & Holographic Gradients -->
+    <linearGradient id="cyanArc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#FF1F1F" />
+    </linearGradient>
+
+    <linearGradient id="speechWave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#FF1F1F" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#00F0FF" stop-opacity="0.1" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#131B2B" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#090E18" stop-opacity="0.92" />
+    </linearGradient>
+  </defs>
+
+  <!-- Deep Studio Canvas -->
+  <rect width="1920" height="1080" fill="url(#jarvisBg)" />
+
+  <!-- Perspective Engineering Floor Grid -->
+  <g opacity="0.15" stroke="#38BDF8" stroke-width="1">
+    <line x1="960" y1="540" x2="0" y2="1080" />
+    <line x1="960" y1="540" x2="320" y2="1080" />
+    <line x1="960" y1="540" x2="640" y2="1080" />
+    <line x1="960" y1="540" x2="1280" y2="1080" />
+    <line x1="960" y1="540" x2="1600" y2="1080" />
+    <line x1="960" y1="540" x2="1920" y2="1080" />
+    <!-- Horizontal floor rings -->
+    <ellipse cx="960" cy="850" rx="900" ry="180" fill="none" stroke-dasharray="10 14" />
+    <ellipse cx="960" cy="940" rx="1100" ry="220" fill="none" stroke="#FF1F1F" stroke-opacity="0.3" />
+  </g>
+
+  <!-- Ambient Hologram Center Glow -->
+  <circle cx="1180" cy="520" r="380" fill="#00F0FF" opacity="0.08" filter="url(#coreAura)" />
+  <circle cx="1180" cy="520" r="220" fill="#FF1F1F" opacity="0.12" filter="url(#coreAura)" />
+
+  <!-- ========================================== -->
+  <!-- 1. LEFT SIDE: HUMAN ENGINEER SPEAKING      -->
+  <!-- ========================================== -->
+  <g transform="translate(180, 240)">
+    <!-- Engineer Silhouette / Studio Bust Profile -->
+    <g opacity="0.95">
+      <!-- Ambient Rim Light on Silhouette -->
+      <path d="M 60,680 C 70,580 120,530 190,500 C 230,480 260,450 270,390 C 275,360 270,340 250,320 C 215,285 220,180 270,120 C 330,50 430,70 450,140 C 470,210 440,270 410,290 C 425,320 445,350 440,390 C 430,460 480,510 540,540 C 600,570 630,640 640,680 Z" 
+            fill="#0B101A" stroke="#38BDF8" stroke-width="2.5" stroke-opacity="0.4" />
+      
+      <!-- Back of head & shoulder shadow shading -->
+      <path d="M 60,680 C 70,580 120,530 190,500 C 230,480 260,450 270,390 C 275,360 270,340 250,320 C 215,285 220,180 270,120 C 310,75 370,75 410,110 C 340,110 300,160 300,230 C 300,310 360,340 370,410 C 380,480 340,530 260,560 C 170,590 100,640 60,680 Z" 
+            fill="#070A11" />
+
+      <!-- Headset & Boom Mic -->
+      <path d="M 360,130 C 420,130 455,170 460,230" fill="none" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <!-- Ear Cup -->
+      <rect x="420" y="200" width="34" height="60" rx="10" fill="#1E293B" stroke="#00F0FF" stroke-width="2" />
+      <!-- Mic Arm extending toward mouth -->
+      <path d="M 430,250 Q 480,310 470,345" fill="none" stroke="#94A3B8" stroke-width="4" stroke-linecap="round" />
+      <circle cx="470" cy="345" r="7" fill="#FF1F1F" filter="url(#redGlow)" />
+    </g>
+
+    <!-- Speech Waveform radiating from human to J.A.R.V.I.S -->
+    <g transform="translate(490, 320)">
+      <!-- Acoustic radiating waves -->
+      <path d="M 10,-30 A 45,45 0 0,1 10,30" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" opacity="0.9" />
+      <path d="M 28,-50 A 75,75 0 0,1 28,50" fill="none" stroke="#00F0FF" stroke-width="3.5" stroke-linecap="round" opacity="0.8" />
+      <path d="M 48,-75 A 110,110 0 0,1 48,75" fill="none" stroke="#FF1F1F" stroke-width="4" stroke-linecap="round" opacity="0.85" filter="url(#redGlow)" />
+      <path d="M 72,-105 A 150,150 0 0,1 72,105" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" opacity="0.6" stroke-dasharray="6 6" />
+      <path d="M 100,-135 A 195,195 0 0,1 100,135" fill="none" stroke="#00F0FF" stroke-width="2.5" stroke-linecap="round" opacity="0.4" />
+
+      <!-- Equalizer Bars from Speech -->
+      <g transform="translate(30, 90)" stroke-linecap="round">
+        <line x1="0" y1="0" x2="0" y2="-25" stroke="#00F0FF" stroke-width="3" />
+        <line x1="10" y1="0" x2="10" y2="-45" stroke="#38BDF8" stroke-width="3" />
+        <line x1="20" y1="0" x2="20" y2="-70" stroke="#FF1F1F" stroke-width="4" />
+        <line x1="30" y1="0" x2="30" y2="-55" stroke="#00F0FF" stroke-width="3" />
+        <line x1="40" y1="0" x2="40" y2="-35" stroke="#38BDF8" stroke-width="3" />
+        <line x1="50" y1="0" x2="50" y2="-20" stroke="#94A3B8" stroke-width="3" />
+      </g>
+    </g>
+
+    <!-- Speech Dialogue Overlay Bubble -->
+    <g transform="translate(180, 20)">
+      <rect x="0" y="0" width="380" height="90" rx="18" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5" filter="url(#cyanGlow)" opacity="0.95" />
+      <circle cx="28" cy="30" r="7" fill="#10B981" />
+      <text x="46" y="34" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" letter-spacing="2">HUMAN VOICE STREAM · MIC 01</text>
+      <text x="24" y="66" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600">"Jarvis, run full embedded system diagnostics."</text>
+    </g>
+  </g>
+
+  <!-- ================================================= -->
+  <!-- 2. CENTER-RIGHT: HOLOGRAPHIC J.A.R.V.I.S SPHERE   -->
+  <!-- ================================================= -->
+  <g transform="translate(1220, 510)">
+    
+    <!-- Outer Arc Graduations & Tech Ring -->
+    <circle cx="0" cy="0" r="330" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-opacity="0.3" stroke-dasharray="4 8" />
+    <circle cx="0" cy="0" r="310" fill="none" stroke="#FF1F1F" stroke-width="2" stroke-opacity="0.6" stroke-dasharray="24 16 8 16" filter="url(#redGlow)" />
+    
+    <!-- Concentric Degree Ring with Cardinal Markers -->
+    <circle cx="0" cy="0" r="270" fill="none" stroke="#00F0FF" stroke-width="2.5" stroke-opacity="0.75" filter="url(#cyanGlow)" />
+    <g stroke="#00F0FF" stroke-width="2" opacity="0.7">
+      <line x1="0" y1="-280" x2="0" y2="-260" />
+      <line x1="0" y1="280" x2="0" y2="260" />
+      <line x1="-280" y1="0" x2="-260" y2="0" />
+      <line x1="280" y1="0" x2="260" y2="0" />
+      <line x1="-190" y1="-190" x2="-180" y2="-180" />
+      <line x1="190" y1="-190" x2="180" y2="-180" />
+      <line x1="-190" y1="190" x2="-180" y2="180" />
+      <line x1="190" y1="190" x2="180" y2="180" />
+    </g>
+
+    <!-- Rotating Gyro Arcs (Sci-Fi Hologram Rings) -->
+    <ellipse cx="0" cy="0" rx="240" ry="110" fill="none" stroke="#FF1F1F" stroke-width="3" stroke-dasharray="140 30 80 40" transform="rotate(-25)" filter="url(#redGlow)" />
+    <ellipse cx="0" cy="0" rx="240" ry="110" fill="none" stroke="#00F0FF" stroke-width="3" stroke-dasharray="120 40 90 20" transform="rotate(40)" filter="url(#cyanGlow)" />
+    <ellipse cx="0" cy="0" rx="250" ry="80" fill="none" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.8" transform="rotate(80)" />
+
+    <!-- Pulsating Audio Spectral Radial Frequency Bars -->
+    <g transform="scale(1.05)">
+      <!-- 36 Radial Spectral Frequency spikes -->
+      <line x1="0" y1="-150" x2="0" y2="-210" stroke="#FF1F1F" stroke-width="4" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="38" y1="-145" x2="52" y2="-198" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" filter="url(#cyanGlow)" />
+      <line x1="75" y1="-130" x2="108" y2="-188" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+      <line x1="106" y1="-106" x2="155" y2="-155" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="130" y1="-75" x2="190" y2="-110" stroke="#00F0FF" stroke-width="3.5" stroke-linecap="round" />
+      <line x1="145" y1="-38" x2="215" y2="-56" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+      
+      <line x1="150" y1="0" x2="225" y2="0" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="145" y1="38" x2="208" y2="54" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="130" y1="75" x2="185" y2="106" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+      <line x1="106" y1="106" x2="160" y2="160" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="75" y1="130" x2="112" y2="194" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="38" y1="145" x2="55" y2="210" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+
+      <line x1="0" y1="150" x2="0" y2="220" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="-38" y1="145" x2="-54" y2="205" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="-75" y1="130" x2="-110" y2="190" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+      <line x1="-106" y1="106" x2="-158" y2="158" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="-130" y1="75" x2="-192" y2="111" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="-145" y1="38" x2="-212" y2="55" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+
+      <line x1="-150" y1="0" x2="-228" y2="0" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="-145" y1="-38" x2="-210" y2="-55" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="-130" y1="-75" x2="-188" y2="-108" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+      <line x1="-106" y1="-106" x2="-162" y2="-162" stroke="#FF1F1F" stroke-width="5" stroke-linecap="round" filter="url(#redGlow)" />
+      <line x1="-75" y1="-130" x2="-109" y2="-189" stroke="#00F0FF" stroke-width="3" stroke-linecap="round" />
+      <line x1="-38" y1="-145" x2="-53" y2="-202" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+    </g>
+
+    <!-- Core Orb Center: Iron Man Arc Reactor & Jarvis Eye -->
+    <circle cx="0" cy="0" r="130" fill="#060911" stroke="#38BDF8" stroke-width="3" />
+    <circle cx="0" cy="0" r="110" fill="none" stroke="#FF1F1F" stroke-width="4" stroke-dasharray="16 8" filter="url(#redGlow)" />
+    <circle cx="0" cy="0" r="80" fill="#0A1120" stroke="#00F0FF" stroke-width="3" filter="url(#cyanGlow)" />
+    <circle cx="0" cy="0" r="50" fill="#FF1F1F" opacity="0.85" filter="url(#redGlow)" />
+    <circle cx="0" cy="0" r="25" fill="#FFFFFF" filter="url(#cyanGlow)" />
+
+    <!-- Center Monogram -->
+    <text x="0" y="5" text-anchor="middle" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="20" letter-spacing="3">J.A.R.V.I.S.</text>
+  </g>
+
+  <!-- ================================================= -->
+  <!-- 3. FLOATING HOLOGRAPHIC TELEMETRY CARDS           -->
+  <!-- ================================================= -->
+
+  <!-- Top Right Card: Neural Status -->
+  <g transform="translate(1420, 140)">
+    <rect x="0" y="0" width="380" height="150" rx="18" fill="url(#cardGrad)" stroke="#00F0FF" stroke-width="1.5" filter="url(#cyanGlow)" opacity="0.9" />
+    <circle cx="28" cy="30" r="6" fill="#00F0FF" />
+    <text x="45" y="34" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" letter-spacing="2">AI VOICE CORE // ONLINE</text>
+    
+    <text x="24" y="68" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold">VOICE RECOGNITION: MATCHED</text>
+    <text x="24" y="92" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">LATENCY: 14ms · CONFIDENCE: 99.4%</text>
+    <text x="24" y="116" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">STATUS: EXECUTING USER COMMAND</text>
+    <line x1="24" y1="130" x2="350" y2="130" stroke="#00F0FF" stroke-opacity="0.3" stroke-width="1" />
+  </g>
+
+  <!-- Middle Right Card: Hardware UART Bus -->
+  <g transform="translate(1460, 420)">
+    <rect x="0" y="0" width="360" height="160" rx="18" fill="url(#cardGrad)" stroke="#FF1F1F" stroke-width="1.5" filter="url(#redGlow)" opacity="0.9" />
+    <circle cx="28" cy="30" r="6" fill="#FF1F1F" />
+    <text x="45" y="34" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" letter-spacing="2">UART HARDWARE LINK</text>
+
+    <text x="24" y="68" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13">BAUD: 115200 // TX/RX ACTIVE</text>
+    <text x="24" y="92" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12">PORT: /dev/ttyUSB0 (ESP32)</text>
+    <text x="24" y="116" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">TELEMETRY PACKETS: 4,821 OK</text>
+    <!-- Wave mini indicator -->
+    <path d="M 24,138 L 50,138 L 60,128 L 75,148 L 90,126 L 105,142 L 120,138 L 330,138" fill="none" stroke="#FF1F1F" stroke-width="2" />
+  </g>
+
+  <!-- Bottom Holographic Response Stream -->
+  <g transform="translate(920, 870)">
+    <rect x="0" y="0" width="880" height="110" rx="20" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5" filter="url(#cyanGlow)" opacity="0.95" />
+    <circle cx="36" cy="36" r="8" fill="#FF1F1F" filter="url(#redGlow)" />
+    <text x="58" y="41" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="2">J.A.R.V.I.S. SYNTHESIZED RESPONSE</text>
+    <text x="36" y="80" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="600">
+      "Diagnostic complete, Sachin. All embedded telemetry channels are operating at peak efficiency."
+    </text>
+  </g>
+
+  <!-- Top Brand Watermark -->
+  <g transform="translate(80, 80)">
+    <text x="0" y="0" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="4">SACHIN J // PROJECT 01</text>
+    <text x="0" y="32" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="36" letter-spacing="2">J.A.R.V.I.S — PERSONAL AI ASSISTANT</text>
+    <text x="0" y="58" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">HUMAN-IN-THE-LOOP SPEECH INTERACTION &amp; EMBEDDED UART BUS</text>
+  </g>
+</svg>

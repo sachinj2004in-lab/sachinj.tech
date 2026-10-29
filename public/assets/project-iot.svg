@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="iotBg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#141B28" />
+      <stop offset="60%" stop-color="#080E17" />
+      <stop offset="100%" stop-color="#020408" />
+    </radialGradient>
+
+    <filter id="iotGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+
+    <linearGradient id="goldMesh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="50%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+
+    <linearGradient id="lcdBacklight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#iotBg)" />
+
+  <!-- Ambient Red & Green Lighting -->
+  <circle cx="560" cy="520" r="280" fill="#10B981" opacity="0.1" filter="url(#iotGlow)" />
+  <circle cx="1260" cy="520" r="320" fill="#38BDF8" opacity="0.1" filter="url(#iotGlow)" />
+
+  <!-- ============================================ -->
+  <!-- 1. IOT NODE ENCLOSURE BASE                   -->
+  <!-- ============================================ -->
+  <g transform="translate(180, 220)">
+    <!-- Transparent Smoked Acrylic Enclosure Box -->
+    <rect x="0" y="0" width="1560" height="640" rx="28" fill="#0B101D" stroke="#38BDF8" stroke-width="2.5" filter="url(#iotGlow)" />
+    <rect x="18" y="18" width="1524" height="604" rx="20" fill="#060912" />
+
+    <!-- ============================================ -->
+    <!-- 2. LEFT: MQ-135 AIR QUALITY SENSOR WITH MESH -->
+    <!-- ============================================ -->
+    <g transform="translate(240, 280)">
+      <!-- Sensor Breakout PCB -->
+      <rect x="-140" y="-140" width="280" height="280" rx="16" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2" />
+      
+      <!-- Cylindrical Sensor Housing with Gold Mesh -->
+      <circle cx="0" cy="0" r="95" fill="#334155" stroke="#94A3B8" stroke-width="3" />
+      <circle cx="0" cy="0" r="82" fill="url(#goldMesh)" filter="url(#iotGlow)" />
+      
+      <!-- Crosshatch Wire Mesh Pattern -->
+      <g stroke="#78350F" stroke-width="1.5" opacity="0.7">
+        <line x1="-70" y1="-40" x2="70" y2="-40" /><line x1="-80" y1="-20" x2="80" y2="-20" />
+        <line x1="-82" y1="0" x2="82" y2="0" /><line x1="-80" y1="20" x2="80" y2="20" /><line x1="-70" y1="40" x2="70" y2="40" />
+        <line x1="-40" y1="-70" x2="-40" y2="70" /><line x1="-20" y1="-80" x2="-20" y2="80" />
+        <line x1="0" y1="-82" x2="0" y2="82" /><line x1="20" y1="-80" x2="20" y2="80" /><line x1="40" y1="-70" x2="40" y2="70" />
+      </g>
+
+      <!-- Center Heating Coil Glow -->
+      <circle cx="0" cy="0" r="24" fill="#FF1F1F" opacity="0.85" filter="url(#iotGlow)" />
+      <circle cx="0" cy="0" r="10" fill="#FCD34D" />
+
+      <!-- Sensor Pin Label -->
+      <text x="0" y="115" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">MQ-135 SENSOR</text>
+      <text x="0" y="132" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10">NH3, NOx, ALCOHOL, BENZENE, SMOKE</text>
+    </g>
+
+    <!-- ============================================ -->
+    <!-- 3. CENTER: ESP32 WI-FI IOT MICROCONTROLLER   -->
+    <!-- ============================================ -->
+    <g transform="translate(680, 280)">
+      <!-- ESP32 NodeMCU Module PCB -->
+      <rect x="-130" y="-180" width="260" height="360" rx="14" fill="#042F2E" stroke="#10B981" stroke-width="2.5" />
+      
+      <!-- PCB Trace Antenna on Top (Gold Meander) -->
+      <path d="M -80,-150 L -60,-150 L -60,-170 L -40,-170 L -40,-150 L -20,-150 L -20,-170 L 0,-170 L 0,-150 L 20,-150 L 20,-170 L 40,-170 L 40,-150 L 60,-150 L 60,-170 L 80,-170" 
+            fill="none" stroke="#F59E0B" stroke-width="3" />
+      <text x="0" y="-132" text-anchor="middle" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">2.4 GHz WI-FI ANTENNA</text>
+
+      <!-- Metal Shielding Can (WROOM-32) -->
+      <rect x="-90" y="-120" width="180" height="210" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="2" />
+      <text x="0" y="-80" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold">ESP-WROOM-32</text>
+      <text x="0" y="-55" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11">Xtensa Dual-Core 240MHz</text>
+      <text x="0" y="-35" text-anchor="middle" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">Wi-Fi &amp; Bluetooth BLE 4.2</text>
+      
+      <!-- Status LEDs on ESP32 -->
+      <circle cx="-60" cy="60" r="5" fill="#EF4444" filter="url(#iotGlow)" />
+      <text x="-48" y="64" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="9">PWR</text>
+      <circle cx="20" cy="60" r="5" fill="#3B82F6" filter="url(#iotGlow)" />
+      <text x="32" y="64" fill="#3B82F6" font-family="'JetBrains Mono', monospace" font-size="9">IO2</text>
+    </g>
+
+    <!-- ============================================ -->
+    <!-- 4. RIGHT: 16x2 HD44780 BACKLIT BLUE LCD      -->
+    <!-- ============================================ -->
+    <g transform="translate(1120, 150)">
+      <!-- LCD Outer Bezel Frame -->
+      <rect x="0" y="0" width="380" height="180" rx="12" fill="#0F172A" stroke="#0284C7" stroke-width="2" />
+      
+      <!-- Blue Backlit LCD Screen Panel -->
+      <rect x="18" y="18" width="344" height="144" rx="6" fill="url(#lcdBacklight)" filter="url(#iotGlow)" />
+      
+      <!-- 5x8 Dot Matrix Pixel Grid Emulation -->
+      <text x="32" y="65" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="bold" letter-spacing="2">PPM: 382.4 [NORM]</text>
+      <text x="32" y="115" fill="#E0F2FE" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold" letter-spacing="1">AIR: GOOD // AQI</text>
+    </g>
+
+    <!-- Air Quality Multi-Segment LED Bar Graph -->
+    <g transform="translate(1120, 360)">
+      <rect x="0" y="0" width="380" height="45" rx="10" fill="#0B132B" stroke="#334155" stroke-width="1.5" />
+      <!-- Segments: 5 Green, 3 Yellow, 2 Red -->
+      <rect x="15" y="10" width="28" height="25" rx="3" fill="#10B981" filter="url(#iotGlow)" />
+      <rect x="49" y="10" width="28" height="25" rx="3" fill="#10B981" filter="url(#iotGlow)" />
+      <rect x="83" y="10" width="28" height="25" rx="3" fill="#10B981" filter="url(#iotGlow)" />
+      <rect x="117" y="10" width="28" height="25" rx="3" fill="#10B981" filter="url(#iotGlow)" />
+      <rect x="151" y="10" width="28" height="25" rx="3" fill="#10B981" filter="url(#iotGlow)" />
+      <rect x="185" y="10" width="28" height="25" rx="3" fill="#F59E0B" />
+      <rect x="219" y="10" width="28" height="25" rx="3" fill="#334155" />
+      <rect x="253" y="10" width="28" height="25" rx="3" fill="#334155" />
+      <rect x="287" y="10" width="28" height="25" rx="3" fill="#334155" />
+      <rect x="321" y="10" width="28" height="25" rx="3" fill="#334155" />
+    </g>
+
+    <!-- ThingSpeak Cloud Telemetry Card -->
+    <g transform="translate(1120, 430)">
+      <rect x="0" y="0" width="380" height="150" rx="14" fill="#0A0E17" stroke="#10B981" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="6" fill="#10B981" />
+      <text x="45" y="32" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">THINGSPEAK CLOUD TELEMETRY</text>
+
+      <text x="24" y="65" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12">CHANNEL: 248190 // ACTIVE</text>
+      <text x="24" y="88" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11">FIELD 1: PPM (382.4)</text>
+      <text x="24" y="108" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11">FIELD 2: TEMP (24.2°C) · RH (52%)</text>
+      <text x="24" y="130" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="10">UPLOAD INTERVAL: 15s · HTTP POST 200 OK</text>
+    </g>
+  </g>
+
+  <!-- Top Watermark -->
+  <g transform="translate(80, 80)">
+    <text x="0" y="0" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="4">SACHIN J // PROJECT 10</text>
+    <text x="0" y="32" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="36" letter-spacing="2">AIR QUALITY MONITORING SYSTEM</text>
+    <text x="0" y="58" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">ESP32 EMBEDDED NODE · MQ-135 GAS SENSOR · I2C 16x2 BACKLIT LCD · THINGSPEAK CLOUD ANALYTICS</text>
+  </g>
+</svg>

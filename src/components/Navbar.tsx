@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
-  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -79,16 +77,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           })}
         </nav>
 
-        {/* Right Actions: Theme Toggle & Red CTA Pill */}
+        {/* Right Actions: Red CTA Pill */}
         <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:text-[#FF1F1F] transition-colors"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'light' ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
-          </button>
-
           <button
             onClick={() => scrollTo('contact')}
             className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-semibold bg-[#FF1F1F] text-white hover:bg-[#E01616] transition-all shadow-md shadow-red-500/10 active:scale-95"
@@ -100,14 +90,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
-
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white"

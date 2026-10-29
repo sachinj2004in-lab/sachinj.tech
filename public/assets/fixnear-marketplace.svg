@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="labBg" cx="50%" cy="40%" r="80%">
+      <stop offset="0%" stop-color="#141A28" />
+      <stop offset="60%" stop-color="#0A0E17" />
+      <stop offset="100%" stop-color="#030508" />
+    </radialGradient>
+
+    <filter id="labGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+
+    <linearGradient id="scopeBezel" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#labBg)" />
+
+  <!-- Bench Surface with Ambient Red Underglow -->
+  <polygon points="0,680 1920,680 1920,1080 0,1080" fill="#0D111A" />
+  <line x1="0" y1="680" x2="1920" y2="680" stroke="#FF1F1F" stroke-width="3" opacity="0.8" filter="url(#labGlow)" />
+
+  <!-- ============================================ -->
+  <!-- 1. PROFESSIONAL DIGITAL STORAGE OSCILLOSCOPE -->
+  <!-- ============================================ -->
+  <g transform="translate(160, 260)">
+    <!-- Instrument Chassis -->
+    <rect x="0" y="0" width="580" height="380" rx="16" fill="url(#scopeBezel)" stroke="#64748B" stroke-width="2" />
+    <rect x="15" y="15" width="550" height="350" rx="10" fill="#0F172A" />
+
+    <!-- Oscilloscope CRT Screen -->
+    <rect x="35" y="35" width="360" height="250" rx="8" fill="#040810" stroke="#00F0FF" stroke-width="1.5" />
+    <!-- Screen Reticle Grid -->
+    <g stroke="#1E293B" stroke-width="1">
+      <line x1="35" y1="97" x2="395" y2="97" /><line x1="35" y1="160" x2="395" y2="160" /><line x1="35" y1="222" x2="395" y2="222" />
+      <line x1="125" y1="35" x2="125" y2="285" /><line x1="215" y1="35" x2="215" y2="285" /><line x1="305" y1="35" x2="305" y2="285" />
+    </g>
+    <!-- Live Waveforms -->
+    <!-- Yellow Channel 1: High frequency square pulse -->
+    <path d="M 40,160 L 70,160 L 70,100 L 110,100 L 110,160 L 150,160 L 150,100 L 190,100 L 190,160 L 230,160 L 230,100 L 270,100 L 270,160 L 310,160 L 310,100 L 350,100 L 350,160 L 390,160" 
+          fill="none" stroke="#FACC15" stroke-width="2.5" />
+    <!-- Cyan Channel 2: Sine wave -->
+    <path d="M 40,200 Q 60,160 80,200 T 120,200 T 160,200 T 200,200 T 240,200 T 280,200 T 320,200 T 360,200 L 390,200" 
+          fill="none" stroke="#38BDF8" stroke-width="2" />
+
+    <!-- Screen Telemetry -->
+    <text x="45" y="55" fill="#FACC15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">CH1: 2.00V 100MHz</text>
+    <text x="230" y="55" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">CH2: 500mV 1.25MSa/s</text>
+
+    <!-- Right Rotary Knobs & Channel BNC Ports -->
+    <g transform="translate(440, 60)">
+      <circle cx="45" cy="40" r="28" fill="#1E293B" stroke="#64748B" stroke-width="2" />
+      <circle cx="45" cy="40" r="16" fill="#334155" />
+      <circle cx="45" cy="120" r="28" fill="#1E293B" stroke="#64748B" stroke-width="2" />
+      <circle cx="45" cy="120" r="16" fill="#334155" />
+      <!-- BNC Connectors -->
+      <circle cx="15" cy="210" r="14" fill="#0A0E17" stroke="#FACC15" stroke-width="3" />
+      <circle cx="65" cy="210" r="14" fill="#0A0E17" stroke="#38BDF8" stroke-width="3" />
+      <text x="15" y="240" text-anchor="middle" fill="#FACC15" font-family="'JetBrains Mono', monospace" font-size="9">CH1</text>
+      <text x="65" y="240" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="9">CH2</text>
+    </g>
+
+    <!-- Instrument Brand -->
+    <text x="35" y="325" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold">RIGOL DS1054Z</text>
+    <text x="35" y="345" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">FOUR-CHANNEL DIGITAL OSCILLOSCOPE</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- 2. CENTER: TABLET DISPLAYING FIXNEAR PLATFORM-->
+  <!-- ============================================ -->
+  <g transform="translate(820, 240)">
+    <!-- Modern Bezel Tablet Standing on Bench -->
+    <rect x="0" y="0" width="460" height="420" rx="24" fill="#0D1117" stroke="#38BDF8" stroke-width="3" filter="url(#labGlow)" />
+    <rect x="16" y="16" width="428" height="388" rx="16" fill="#0F172A" />
+
+    <!-- Tablet UI Header -->
+    <rect x="16" y="16" width="428" height="48" fill="#1E293B" />
+    <circle cx="42" cy="40" r="8" fill="#FF1F1F" />
+    <text x="60" y="44" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="18" letter-spacing="1">FIXNEAR // MARKETPLACE</text>
+    <rect x="330" y="28" width="95" height="24" rx="12" fill="#10B981" />
+    <text x="377" y="44" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">ONLINE</text>
+
+    <!-- Rental Item 1 Card -->
+    <rect x="32" y="80" width="396" height="85" rx="10" fill="#1E293B" stroke="#475569" stroke-width="1" />
+    <rect x="44" y="92" width="60" height="60" rx="8" fill="#0A0E17" stroke="#38BDF8" stroke-width="1" />
+    <text x="74" y="128" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">DSO</text>
+    <text x="118" y="108" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">100MHz Oscilloscope Rental</text>
+    <text x="118" y="126" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">Verified Tech: Coimbatore North · 1.2 km</text>
+    <text x="118" y="146" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">₹250/day · AVAILABLE NOW</text>
+
+    <!-- Rental Item 2 Card -->
+    <rect x="32" y="180" width="396" height="85" rx="10" fill="#1E293B" stroke="#475569" stroke-width="1" />
+    <rect x="44" y="192" width="60" height="60" rx="8" fill="#0A0E17" stroke="#F59E0B" stroke-width="1" />
+    <text x="74" y="228" text-anchor="middle" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">SMD</text>
+    <text x="118" y="208" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">SMD Hot Air Soldering Station</text>
+    <text x="118" y="226" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">Hakko 888D Compatible · Gandhipuram</text>
+    <text x="118" y="246" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">₹180/day · AVAILABLE NOW</text>
+
+    <!-- Rental Item 3 Card -->
+    <rect x="32" y="280" width="396" height="85" rx="10" fill="#1E293B" stroke="#FF1F1F" stroke-width="1" />
+    <rect x="44" y="292" width="60" height="60" rx="8" fill="#0A0E17" stroke="#FF1F1F" stroke-width="1" />
+    <text x="74" y="328" text-anchor="middle" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">LOGIC</text>
+    <text x="118" y="308" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">24MHz 8-Ch Logic Analyzer</text>
+    <text x="118" y="326" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">UART / SPI / I2C Protocol Decoding</text>
+    <text x="118" y="346" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">₹120/day · BOOKED BY YOU</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- 3. RIGHT: PRECISION SOLDERING STATION & METERS-->
+  <!-- ============================================ -->
+  <g transform="translate(1380, 300)">
+    <!-- Hakko Soldering Station -->
+    <rect x="0" y="60" width="280" height="280" rx="14" fill="#047857" stroke="#10B981" stroke-width="2" />
+    <!-- Yellow Front Bezel -->
+    <rect x="15" y="75" width="250" height="250" rx="10" fill="#FACC15" />
+    
+    <!-- Digital Temperature Readout -->
+    <rect x="40" y="105" width="200" height="70" rx="8" fill="#022C22" stroke="#047857" stroke-width="2" />
+    <text x="140" y="155" text-anchor="middle" fill="#34D399" font-family="'Anton', sans-serif" font-size="44" letter-spacing="3">350°C</text>
+
+    <!-- Adjustment Buttons -->
+    <circle cx="80" cy="220" r="22" fill="#065F46" />
+    <text x="80" y="227" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold">▲</text>
+    
+    <circle cx="200" cy="220" r="22" fill="#065F46" />
+    <text x="200" y="227" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold">▼</text>
+
+    <!-- Soldering Iron Pencil & Stand -->
+    <g transform="translate(320, 160) rotate(-35)">
+      <rect x="0" y="0" width="24" height="180" rx="8" fill="#1E293B" stroke="#64748B" stroke-width="1.5" />
+      <rect x="4" y="180" width="16" height="70" fill="#94A3B8" />
+      <polygon points="4,250 20,250 12,285" fill="#E2E8F0" />
+      <!-- Soldering iron tip glow -->
+      <circle cx="12" cy="285" r="8" fill="#FF1F1F" opacity="0.8" filter="url(#labGlow)" />
+    </g>
+    <text x="140" y="300" text-anchor="middle" fill="#064E3B" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">DIGITAL ESD-SAFE STATION</text>
+  </g>
+
+  <!-- Top Watermark -->
+  <g transform="translate(80, 80)">
+    <text x="0" y="0" fill="#FF1F1F" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" letter-spacing="4">SACHIN J // PROJECT 05</text>
+    <text x="0" y="32" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="36" letter-spacing="2">FIXNEAR — SERVICE &amp; RENTAL MARKETPLACE</text>
+    <text x="0" y="58" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">ELECTRONICS HARDWARE DIAGNOSTICS · ON-DEMAND TOOL RENTALS · VERIFIED TECHNICIANS</text>
+  </g>
+</svg>

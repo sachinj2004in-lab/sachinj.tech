@@ -82,11 +82,11 @@ export const Skills: React.FC = () => {
                   {skill.name}
                 </span>
                 {skill.isLearning ? (
-                  <span className="text-[10px] font-mono bg-white/20 px-2 py-0.5 rounded-full uppercase">
+                  <span className="text-xs font-mono bg-white/20 px-2 py-0.5 rounded-full uppercase">
                     Learning
                   </span>
                 ) : (
-                  <span className="hidden sm:inline text-[10px] font-mono text-neutral-400">
+                  <span className="hidden sm:inline text-xs font-mono text-neutral-400">
                     {skill.badge}
                   </span>
                 )}

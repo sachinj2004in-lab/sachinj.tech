@@ -176,9 +176,9 @@ export const CharacterShowcase: React.FC = () => {
               <span className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
               <span className="text-white font-semibold">1000110976.MP4</span>
               <span className="text-neutral-600">//</span>
-              <span className="text-[#FF1F1F] font-mono text-[11px]">PORTRAIT [9:16]</span>
+              <span className="text-[#FF1F1F] font-mono text-xs">PORTRAIT [9:16]</span>
             </div>
-            <div className="flex items-center gap-3 text-[11px]">
+            <div className="flex items-center gap-3 text-xs">
               <span>PROGRESS: {Math.round(progress)}%</span>
               <span className="text-neutral-600">|</span>
               <span className="text-emerald-400">60 FPS</span>
@@ -199,7 +199,7 @@ export const CharacterShowcase: React.FC = () => {
             />
 
             {/* Subtle Crosshairs Overlay */}
-            <div className="absolute inset-0 pointer-events-none border border-white/5 m-3 rounded-lg flex flex-col justify-between p-3 text-[10px] font-mono text-white/30">
+            <div className="absolute inset-0 pointer-events-none border border-white/5 m-3 rounded-lg flex flex-col justify-between p-3 text-xs font-mono text-white/30">
               <div className="flex justify-between">
                 <span>+ [TL:0.0]</span>
                 <span>[TR:1.0] +</span>
@@ -251,7 +251,7 @@ export const CharacterShowcase: React.FC = () => {
                 </span>
               </div>
 
-              <div className="hidden sm:flex items-center gap-2 text-neutral-500 text-[11px]">
+              <div className="hidden sm:flex items-center gap-2 text-neutral-500 text-xs">
                 <Eye className="w-3.5 h-3.5" />
                 <span>HARDWARE-ACCELERATED H.264</span>
               </div>
