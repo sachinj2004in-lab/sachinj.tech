@@ -167,13 +167,13 @@ export const Resume: React.FC = () => {
             </div>
 
             {/* Right Column: Dedicated Character Visual (05-resume.mp4) - Large & Centered in Stage */}
-            <div className="flex md:col-span-5 w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[420px] md:max-w-none h-[340px] xs:h-[380px] sm:h-[440px] md:h-[65vh] lg:h-[95vh] items-center md:items-end justify-center relative pointer-events-none bg-transparent order-first md:order-none overflow-hidden mx-auto md:mx-0 my-1 md:my-0">
+            <div className="flex md:col-span-5 w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[420px] md:max-w-none h-[320px] xs:h-[360px] sm:h-[420px] md:h-[65vh] lg:h-[95vh] items-center md:items-end justify-center relative pointer-events-none bg-transparent order-first md:order-none overflow-hidden mx-auto md:mx-0 my-0 md:my-0">
               <SeamlessCharacterVideo
                 sectionId="resume"
                 videoSrc="/videos/05-resume.mp4"
                 position="center"
                 parallaxStrength={10}
-                className="object-contain md:object-bottom scale-100 md:scale-[1.5] lg:scale-[2.40] origin-center md:origin-bottom lg:-translate-x-6 lg:translate-y-8"
+                className="object-contain md:object-bottom scale-[1.34] xs:scale-[1.42] sm:scale-[1.5] md:scale-[1.5] lg:scale-[2.40] origin-center md:origin-bottom lg:-translate-x-6 lg:translate-y-8"
               />
             </div>
 

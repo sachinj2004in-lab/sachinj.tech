@@ -394,13 +394,13 @@ ${formData.message.trim()}`;
             </div>
 
             {/* Right Column: Dedicated Character Visual (06-contact.mp4) matching reference screenshot */}
-            <div className="flex md:col-span-5 w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[410px] md:max-w-none h-[300px] xs:h-[350px] sm:h-[400px] md:h-[55vh] lg:h-[72vh] min-h-[180px] md:min-h-[380px] lg:min-h-[480px] max-h-[660px] items-center md:items-end justify-center relative pointer-events-none bg-transparent order-first md:order-none overflow-hidden mx-auto md:mx-0">
+            <div className="flex md:col-span-5 w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[410px] md:max-w-none h-[280px] xs:h-[320px] sm:h-[370px] md:h-[55vh] lg:h-[72vh] min-h-[180px] md:min-h-[380px] lg:min-h-[480px] max-h-[660px] items-center md:items-end justify-center relative pointer-events-none bg-transparent order-first md:order-none overflow-hidden mx-auto md:mx-0">
               <SeamlessCharacterVideo
                 sectionId="contact"
                 videoSrc="/videos/06-contact.mp4"
                 position="center"
                 parallaxStrength={10}
-                className="object-contain object-bottom scale-100 md:scale-[1.35] lg:scale-[2.05] origin-center md:origin-bottom lg:translate-x-10 xl:translate-x-14 lg:translate-y-3"
+                className="object-contain object-bottom scale-[1.32] xs:scale-[1.40] sm:scale-[1.48] md:scale-[1.35] lg:scale-[2.05] origin-center md:origin-bottom lg:translate-x-10 xl:translate-x-14 lg:translate-y-3"
               />
             </div>
 
