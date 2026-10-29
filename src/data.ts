@@ -416,7 +416,7 @@ export const PORTFOLIO_DATA = {
   resume: {
     label: '(05) — Resume',
     headlineLine1: 'CURRICULUM',
-    headlineLine2: 'VITAE.',
+    headlineLine2: 'VITAE',
     summary:
       'Aspiring Embedded Software Engineer pursuing Bachelor of Engineering in Electronics & Communication Engineering at Kumaraguru College of Technology (2022–2026 batch). Hands-on experience developing microcontrollers, robotics kinematics, and IoT telemetry prototypes.',
     degree: 'Bachelor of Engineering — Electronics and Communication Engineering',

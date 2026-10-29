@@ -184,12 +184,8 @@ export const Chrome: React.FC = () => {
           {/* Top Red Panel */}
           <div
             ref={topPanelRef}
-            className="w-full h-1/2 bg-[#ff1f1f] flex items-end justify-center pb-8 shadow-2xl relative"
-          >
-            <div className="font-mono text-xs text-white/75 uppercase tracking-widest">
-              SACHIN J // PORTFOLIO INITIALIZATION
-            </div>
-          </div>
+            className="w-full h-1/2 bg-[#ff1f1f] shadow-2xl relative"
+          />
 
           {/* Center Masked Text Reveal */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
@@ -203,23 +199,23 @@ export const Chrome: React.FC = () => {
               </div>
             </div>
 
-            {/* SACHIN J in Anton */}
-            <div className="overflow-hidden py-1 sm:py-2 mt-1 sm:mt-3">
+            {/* SACHIN in Anton */}
+            <div className="overflow-hidden py-1 sm:py-2 mt-1 sm:mt-2">
               <div
                 ref={nameTextRef}
                 className="font-display text-5xl sm:text-7xl md:text-[8vw] font-black text-white leading-[0.88] tracking-tight uppercase will-change-transform"
               >
-                SACHIN J
+                SACHIN
               </div>
             </div>
 
-            {/* Subtitle */}
-            <div className="overflow-hidden mt-4">
+            {/* Subtitle: Subtle Embedded Software Engineer */}
+            <div className="overflow-hidden mt-3 sm:mt-4">
               <div
                 ref={subTextRef}
-                className="font-mono text-xs sm:text-sm text-white/85 tracking-widest uppercase will-change-transform"
+                className="font-sans text-sm sm:text-base md:text-lg text-white/90 tracking-[0.2em] uppercase font-semibold will-change-transform"
               >
-                EMBEDDED SYSTEMS ARCHITECTURE · 2026
+                Embedded Software Engineer
               </div>
             </div>
           </div>
@@ -227,12 +223,8 @@ export const Chrome: React.FC = () => {
           {/* Bottom Red Panel */}
           <div
             ref={bottomPanelRef}
-            className="w-full h-1/2 bg-[#ff1f1f] flex items-start justify-center pt-8 shadow-2xl relative"
-          >
-            <div className="font-mono text-xs text-white/75 uppercase tracking-widest">
-              ENGINEERING PORTFOLIO · COIMBATORE, INDIA
-            </div>
-          </div>
+            className="w-full h-1/2 bg-[#ff1f1f] shadow-2xl relative"
+          />
         </div>
       )}
 
@@ -243,21 +235,8 @@ export const Chrome: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand: Sachin's first name in Anton with red dot */}
-          <button
-            onClick={() => director.scrollToScene('hero')}
-            className="flex items-center gap-1.5 focus:outline-none text-left"
-            aria-label="Sachin J - Home"
-          >
-            <span className={`font-display text-3xl font-black tracking-tight uppercase transition-colors ${
-              isContact ? 'text-white' : 'text-ink dark:text-white'
-            }`}>
-              SACHIN
-            </span>
-            <span className={`w-2 h-2 rounded-full mt-1 transition-colors ${
-              isContact ? 'bg-white' : 'bg-[#ff1f1f]'
-            }`} />
-          </button>
+          {/* Brand: Spacer to maintain justify-between layout without sticking across sections */}
+          <div className="w-28 sm:w-36 h-9 pointer-events-none select-none" aria-hidden="true" />
 
           {/* Desktop Right Controls: Clean Nav Menu matching reference screenshot (1024px+) */}
           <div className="hidden lg:flex items-center gap-2.5">

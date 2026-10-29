@@ -30,6 +30,17 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden bg-white"
     >
+      {/* Brand Name strictly inside Home section (scrolls naturally with Home, does not stick to screen) */}
+      <div className="absolute top-5 left-0 w-full z-40 pointer-events-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-start">
+          <div className="flex items-center gap-1.5 focus:outline-none text-left select-none">
+            <span className="font-display text-3xl font-black tracking-tight uppercase text-ink">
+              SACHIN
+            </span>
+            <span className="w-2 h-2 rounded-full mt-1 bg-[#ff1f1f]" />
+          </div>
+        </div>
+      </div>
       {/* Full-Viewport Stage with Pure White Background */}
       <div className="relative w-full min-h-screen overflow-hidden flex flex-col md:block md:items-center bg-white">
 
