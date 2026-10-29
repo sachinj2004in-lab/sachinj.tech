@@ -101,7 +101,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Character Visual: Seamless on Right for Tablet/Desktop, prominent dedicated area below buttons on Mobile */}
-        <div className="relative md:absolute md:right-0 md:bottom-0 md:top-0 w-full md:w-[48vw] lg:w-[50vw] md:h-full flex items-center md:items-end justify-center md:justify-end pointer-events-none z-10 lg:z-20 bg-transparent overflow-visible md:overflow-hidden mt-4 xs:mt-6 sm:mt-8 md:mt-0 pb-4 md:pb-0">
+        <div className="relative md:absolute md:right-0 md:bottom-0 md:top-0 w-full md:w-[48vw] lg:w-[50vw] md:h-full flex items-center md:items-end justify-center md:justify-end pointer-events-none z-10 lg:z-20 bg-transparent overflow-hidden mt-4 xs:mt-6 sm:mt-8 md:mt-0 pb-4 md:pb-0">
           <div className="w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[420px] md:max-w-none h-[500px] xs:h-[550px] sm:h-[600px] md:h-[78vh] lg:h-[82vh] flex items-center md:items-end justify-center md:justify-end bg-transparent md:translate-y-4 lg:translate-y-6">
             <SeamlessCharacterVideo
               sectionId="hero"

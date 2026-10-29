@@ -41,7 +41,7 @@ export const Chrome: React.FC = () => {
     });
 
     const tl = gsap.timeline({
-      delay: 0.15,
+      delay: 0.05,
       onComplete: () => {
         setPreloaderComplete(true);
         director.start();
@@ -55,20 +55,20 @@ export const Chrome: React.FC = () => {
     tl.to(welcomeTextRef.current, {
       yPercent: 0,
       opacity: 1,
-      duration: 0.75,
+      duration: 0.55,
       ease: 'power3.out',
     });
 
-    // 2. Reveal SACHIN J immediately afterward using subtle stagger
+    // 2. Reveal SACHIN immediately afterward using subtle stagger
     tl.to(
       nameTextRef.current,
       {
         yPercent: 0,
         opacity: 1,
-        duration: 0.75,
+        duration: 0.55,
         ease: 'power3.out',
       },
-      '-=0.45'
+      '-=0.35'
     );
 
     // 3. Reveal technical subtitle
@@ -77,14 +77,14 @@ export const Chrome: React.FC = () => {
       {
         y: 0,
         opacity: 1,
-        duration: 0.45,
+        duration: 0.35,
         ease: 'power2.out',
       },
-      '-=0.3'
+      '-=0.2'
     );
 
     // 4. Subtle dwell to appreciate typography
-    tl.to({}, { duration: 0.45 });
+    tl.to({}, { duration: 0.35 });
 
     // 5. Elevate text upward smoothly
     tl.to(
@@ -92,9 +92,9 @@ export const Chrome: React.FC = () => {
       {
         yPercent: -40,
         opacity: 0,
-        duration: 0.45,
+        duration: 0.35,
         ease: 'power2.in',
-        stagger: 0.05,
+        stagger: 0.04,
       }
     );
 
@@ -103,17 +103,17 @@ export const Chrome: React.FC = () => {
       topPanelRef.current,
       {
         yPercent: -100,
-        duration: 1.0,
+        duration: 0.75,
         ease: 'expo.inOut',
       },
-      '-=0.15'
+      '-=0.1'
     );
 
     tl.to(
       bottomPanelRef.current,
       {
         yPercent: 100,
-        duration: 1.0,
+        duration: 0.75,
         ease: 'expo.inOut',
       },
       '<'
@@ -292,7 +292,7 @@ export const Chrome: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="fixed inset-x-4 top-20 z-50 lg:hidden p-4 sm:p-6 rounded-3xl bg-neutral-900/95 backdrop-blur-2xl border border-white/20 shadow-2xl text-white space-y-3 max-w-lg mx-auto animate-fadeIn">
+            <div className="fixed left-4 right-4 top-20 z-50 lg:hidden p-4 sm:p-6 rounded-3xl bg-neutral-900/95 backdrop-blur-2xl border border-white/20 shadow-2xl text-white space-y-3 max-w-lg mx-auto animate-fadeIn">
             <div className="flex items-center justify-between pb-2 border-b border-white/10 font-mono text-[10px] text-white/60 uppercase tracking-widest">
               <span>PORTFOLIO SECTIONS</span>
               <span>SACHIN J · 2026</span>

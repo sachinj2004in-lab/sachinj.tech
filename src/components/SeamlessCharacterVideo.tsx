@@ -506,7 +506,8 @@ export const SeamlessCharacterVideo: React.FC<SeamlessCharacterVideoProps> = ({
     const drawFrame = () => {
       if (!isRunning) return;
       if (video.readyState >= 2 && video.videoWidth > 0) {
-        const targetW = Math.min(video.videoWidth, 1280);
+        const maxDimension = typeof window !== 'undefined' && window.innerWidth < 768 ? 720 : 1280;
+        const targetW = Math.min(video.videoWidth, maxDimension);
         const targetH = Math.round(targetW * (video.videoHeight / video.videoWidth));
 
         if (canvas.width !== targetW || canvas.height !== targetH) {
@@ -556,10 +557,19 @@ export const SeamlessCharacterVideo: React.FC<SeamlessCharacterVideoProps> = ({
     };
 
     video.addEventListener('play', handlePlay);
+    video.addEventListener('playing', handlePlay);
     video.addEventListener('loadeddata', drawFrame);
+    video.addEventListener('loadedmetadata', drawFrame);
     video.addEventListener('canplay', drawFrame);
     video.addEventListener('seeked', drawFrame);
     video.addEventListener('timeupdate', drawFrame);
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        drawFrame();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
 
     // Initial render
     drawFrame();
@@ -572,10 +582,13 @@ export const SeamlessCharacterVideo: React.FC<SeamlessCharacterVideoProps> = ({
       isRunning = false;
       cancelAnimationFrame(animId);
       video.removeEventListener('play', handlePlay);
+      video.removeEventListener('playing', handlePlay);
       video.removeEventListener('loadeddata', drawFrame);
+      video.removeEventListener('loadedmetadata', drawFrame);
       video.removeEventListener('canplay', drawFrame);
       video.removeEventListener('seeked', drawFrame);
       video.removeEventListener('timeupdate', drawFrame);
+      document.removeEventListener('visibilitychange', handleVisibility);
       canvas.removeEventListener('webglcontextlost', handleContextLost);
       if (texture) gl.deleteTexture(texture);
       if (positionBuffer) gl.deleteBuffer(positionBuffer);
@@ -655,16 +668,16 @@ export const SeamlessCharacterVideo: React.FC<SeamlessCharacterVideoProps> = ({
     };
   }, [priority, isHero]);
 
-  // Ensure natural arm & body extension for Journey, Resume, and Contact without invisible rectangular clipping
+  // Ensure natural arm & body extension for Journey, Resume, and Contact on desktop without invisible rectangular clipping
   useEffect(() => {
     if (sectionId === 'journey' || sectionId === 'resume' || sectionId === 'contact') {
-      let p = containerRef.current?.parentElement;
-      while (p && p.id !== 'journey' && p.id !== 'resume' && p.id !== 'contact' && p.tagName !== 'MAIN') {
-        p.style.overflow = 'visible';
-        p = p.parentElement;
-      }
-      if (sectionId === 'journey' && canvasRef.current) {
-        if (window.innerWidth >= 1024) {
+      if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+        let p = containerRef.current?.parentElement;
+        while (p && p.id !== 'journey' && p.id !== 'resume' && p.id !== 'contact' && p.tagName !== 'MAIN') {
+          p.style.overflow = 'visible';
+          p = p.parentElement;
+        }
+        if (sectionId === 'journey' && canvasRef.current) {
           canvasRef.current.style.transform = 'scale(2.15) translate(10px, -10px)';
           canvasRef.current.style.transformOrigin = 'bottom center';
         }

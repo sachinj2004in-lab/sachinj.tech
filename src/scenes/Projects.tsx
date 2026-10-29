@@ -60,9 +60,9 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="relative w-full h-[240vh]">
-      {/* Sticky Full-Viewport Stage */}
-      <div className="sticky top-0 left-0 w-full h-screen overflow-y-auto lg:overflow-hidden flex flex-col justify-start lg:justify-center custom-scroll">
+    <section id="projects" className="relative w-full min-h-screen md:h-[240vh]">
+      {/* Viewport Stage: Natural on mobile, Sticky on Tablet/Desktop */}
+      <div className="relative md:sticky md:top-0 left-0 w-full min-h-screen md:h-screen md:overflow-y-auto lg:overflow-hidden flex flex-col justify-start lg:justify-center custom-scroll">
         
         {/* Subtle Perspective Grid Floor (z0) */}
         <div
@@ -81,52 +81,51 @@ export const Projects: React.FC = () => {
           {/* Header Bar */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between pb-3 mb-4 border-b border-hairline dark:border-white/10 gap-2.5">
             {/* Top / Left Group: Meta Label + Mobile Stepper Controls */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <div className="font-mono text-xs text-neutral-400 dark:text-neutral-500 uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff1f1f]" />
-                  <span>{projects.label}</span>
-                  <span className="text-neutral-300 dark:text-neutral-700">//</span>
-                  <span className="hidden xs:inline">12 DEDICATED PROTOTYPES</span>
-                  <span className="xs:hidden">12 PROTOTYPES</span>
+            <div className="flex items-center justify-between gap-2 w-full sm:w-auto min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="font-mono text-xs text-neutral-400 dark:text-neutral-500 uppercase tracking-widest flex items-center gap-1.5 truncate">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff1f1f] shrink-0" />
+                  <span className="shrink-0">{projects.label}</span>
+                  <span className="text-neutral-300 dark:text-neutral-700 shrink-0">//</span>
+                  <span className="hidden sm:inline">12 DEDICATED PROTOTYPES</span>
                 </div>
 
                 {/* View All Grid Button - Clean Rectangular Style */}
                 <button
                   onClick={() => setIsGridModalOpen(true)}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-mono font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:bg-[#ff1f1f] hover:text-white transition-colors border border-black/10 dark:border-white/10 shadow-sm"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-mono font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:bg-[#ff1f1f] hover:text-white transition-colors border border-black/10 dark:border-white/10 shadow-sm shrink-0"
                 >
                   <Grid className="w-3.5 h-3.5" />
                   <span>Browse All 12</span>
                 </button>
               </div>
 
-              {/* Mobile Stepper Controls with 44px Touch Targets */}
-              <div className="flex sm:hidden items-center gap-1.5">
+              {/* Mobile Stepper Controls with Compact Touch Targets */}
+              <div className="flex sm:hidden items-center gap-1 shrink-0">
                 <button
                   onClick={handlePrev}
                   aria-label="Previous project"
-                  className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-[#ff1f1f] hover:border-[#ff1f1f] hover:text-white transition-all shadow-sm"
+                  className="h-8 w-8 min-h-[32px] min-w-[32px] flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-[#ff1f1f] hover:border-[#ff1f1f] hover:text-white transition-all shadow-sm"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
 
-                <div className="font-display text-base font-black text-ink dark:text-white min-w-[50px] text-center">
+                <div className="font-display text-sm font-black text-ink dark:text-white min-w-[36px] text-center">
                   {currentProject.number}
                 </div>
 
                 <button
                   onClick={handleNext}
                   aria-label="Next project"
-                  className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-[#ff1f1f] hover:border-[#ff1f1f] hover:text-white transition-all shadow-sm"
+                  className="h-8 w-8 min-h-[32px] min-w-[32px] flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-[#ff1f1f] hover:border-[#ff1f1f] hover:text-white transition-all shadow-sm"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
 
             {/* Category Tabs - Scrollable without document overflow */}
-            <div className="w-full sm:w-auto min-w-0 overflow-x-auto no-scrollbar py-1 flex items-center gap-1.5">
+            <div className="w-full sm:w-auto min-w-0 max-w-full overflow-x-auto no-scrollbar py-1 flex items-center gap-1.5">
               {['All', 'AI & Robotics', 'Embedded & IoT', 'Electronics & Mobile'].map((cat) => (
                 <button
                   key={cat}

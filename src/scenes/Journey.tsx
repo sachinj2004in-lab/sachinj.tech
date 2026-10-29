@@ -90,13 +90,13 @@ export const Journey: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
             
             {/* Left Column: Dedicated Character Visual (04-journey.mp4) - Large & Centered in Stage */}
-            <div className="flex md:col-span-5 w-full max-w-[360px] xs:max-w-[420px] md:max-w-none h-[380px] xs:h-[430px] sm:h-[480px] md:h-[65vh] lg:h-[95vh] items-center md:items-end justify-center relative pointer-events-none bg-transparent overflow-hidden mx-auto md:mx-0 my-1 md:my-0">
+            <div className="flex md:col-span-5 w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[420px] md:max-w-none h-[340px] xs:h-[380px] sm:h-[440px] md:h-[65vh] lg:h-[95vh] items-center md:items-end justify-center relative pointer-events-none bg-transparent overflow-hidden mx-auto md:mx-0 my-1 md:my-0">
               <SeamlessCharacterVideo
                 sectionId="journey"
                 videoSrc="/videos/04-journey.mp4"
                 position="center"
                 parallaxStrength={10}
-                className="object-contain md:object-bottom scale-[1.75] xs:scale-[1.90] sm:scale-[2.0] md:scale-[1.5] lg:scale-[2.65] origin-center md:origin-bottom lg:-translate-x-[100px] lg:-translate-y-7"
+                className="object-contain md:object-bottom scale-100 md:scale-[1.5] lg:scale-[2.65] origin-center md:origin-bottom lg:-translate-x-[100px] lg:-translate-y-7"
               />
             </div>
 
