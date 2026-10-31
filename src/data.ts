@@ -66,7 +66,7 @@ export const PORTFOLIO_DATA = {
   },
 
   hero: {
-    intro: "HI, I'M SACHIN J.",
+    intro: "HI, I'M SACHIN J",
     headlineLine1: 'EMBEDDED',
     headlineLine2: 'SOFTWARE',
     headlineLine3: 'ENGINEER',
