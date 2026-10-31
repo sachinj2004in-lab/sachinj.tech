@@ -199,13 +199,13 @@ export const Chrome: React.FC = () => {
               </div>
             </div>
 
-            {/* SACHIN in Anton */}
+            {/* SACHIN J. in Anton */}
             <div className="overflow-hidden py-1 sm:py-2 mt-1 sm:mt-2">
               <div
                 ref={nameTextRef}
                 className="font-display text-5xl sm:text-7xl md:text-[8vw] font-black text-white leading-[0.88] tracking-tight uppercase will-change-transform"
               >
-                SACHIN
+                SACHIN J.
               </div>
             </div>
 

@@ -35,9 +35,8 @@ export const Hero: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-start">
           <div className="flex items-center gap-1.5 focus:outline-none text-left select-none">
             <span className="font-display text-3xl font-black tracking-tight uppercase text-ink">
-              SACHIN
+              SACHIN J.
             </span>
-            <span className="w-2 h-2 rounded-full mt-1 bg-[#ff1f1f]" />
           </div>
         </div>
       </div>

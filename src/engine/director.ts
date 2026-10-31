@@ -65,6 +65,7 @@ class ScrollDirector {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
+    window.scrollTo(0, 0);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
